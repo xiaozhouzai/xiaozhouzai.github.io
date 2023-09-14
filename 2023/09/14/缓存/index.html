@@ -16,26 +16,25 @@
   <meta name="author" content="李成阳">
   <meta name="keywords" content="">
   
-    <meta name="description" content="springMvc注解及其用法 @Controller：用于标识一个类为控制器，处理请求并返回响应。 1234@Controllerpublic class UserController &amp;#123;    &#x2F;&#x2F; 控制器方法...&amp;#125;  @RestController：与@Controller类似，但它还会自动将方法的返回值转换为JSON格式，常用于构建RESTful API。 1234@">
+    <meta name="description" content="缓存技术分布式缓存 redis操作redis的客户端：  Jedis 独立于spring操作redis的java客户端  Lettuce 高阶操作redis的java客户端 使用lettuce做redis连接池(复用)  导入依赖  123456&lt;!-- https:&#x2F;&#x2F;mvnrepository.com&#x2F;artifact&#x2F;io.lettuce&#x2F;lettuce-core --&gt;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="springMvc注解及其用法">
-<meta property="og:url" content="http://zhouzhoubao.xyz/2023/08/16/springMvc%E6%B3%A8%E8%A7%A3%E5%8F%8A%E5%85%B6%E7%94%A8%E6%B3%95/index.html">
+<meta property="og:title" content="缓存">
+<meta property="og:url" content="http://zhouzhoubao.xyz/2023/09/14/%E7%BC%93%E5%AD%98/index.html">
 <meta property="og:site_name" content="LCY的博客">
-<meta property="og:description" content="springMvc注解及其用法 @Controller：用于标识一个类为控制器，处理请求并返回响应。 1234@Controllerpublic class UserController &amp;#123;    &#x2F;&#x2F; 控制器方法...&amp;#125;  @RestController：与@Controller类似，但它还会自动将方法的返回值转换为JSON格式，常用于构建RESTful API。 1234@">
+<meta property="og:description" content="缓存技术分布式缓存 redis操作redis的客户端：  Jedis 独立于spring操作redis的java客户端  Lettuce 高阶操作redis的java客户端 使用lettuce做redis连接池(复用)  导入依赖  123456&lt;!-- https:&#x2F;&#x2F;mvnrepository.com&#x2F;artifact&#x2F;io.lettuce&#x2F;lettuce-core --&gt;">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-08-16T03:17:02.000Z">
-<meta property="article:modified_time" content="2023-08-16T03:26:32.737Z">
+<meta property="article:published_time" content="2023-09-14T01:03:38.000Z">
+<meta property="article:modified_time" content="2023-09-14T02:51:37.590Z">
 <meta property="article:author" content="李成阳">
-<meta property="article:tag" content="spring">
-<meta property="article:tag" content="注解">
-<meta property="article:tag" content="restful风格">
+<meta property="article:tag" content="优化">
+<meta property="article:tag" content="缓存">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>springMvc注解及其用法 - LCY的博客</title>
+  <title>缓存 - LCY的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -201,7 +200,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="springMvc注解及其用法"></span>
+            <span id="subtitle" data-typed-text="缓存"></span>
           
         </div>
 
@@ -217,8 +216,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-08-16 11:17" pubdate>
-          2023年8月16日 上午
+        <time datetime="2023-09-14 09:03" pubdate>
+          2023年9月14日 上午
         </time>
       </span>
     
@@ -229,7 +228,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3k 字
+          1.2k 字
         
       </span>
     
@@ -240,7 +239,7 @@
         
         
         
-          26 分钟
+          10 分钟
         
       </span>
     
@@ -290,12 +289,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">springMvc注解及其用法</h1>
+            <h1 id="seo-header">缓存</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年8月16日 上午
+                    本文最后更新于：2023年9月14日 上午
                   
                 
               </p>
@@ -303,43 +302,97 @@
             
               <div class="markdown-body">
                 
-                <h1 id="springMvc注解及其用法"><a href="#springMvc注解及其用法" class="headerlink" title="springMvc注解及其用法"></a>springMvc注解及其用法</h1><ol>
-<li><p><code>@Controller</code>：用于标识一个类为控制器，处理请求并返回响应。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Controller</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserController</span> &#123;<br>    <span class="hljs-comment">// 控制器方法...</span><br>&#125;<br></code></pre></td></tr></table></figure>
+                <h2 id="缓存技术"><a href="#缓存技术" class="headerlink" title="缓存技术"></a>缓存技术</h2><p>分布式缓存</p>
+<h3 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h3><p>操作redis的客户端：</p>
+<ol>
+<li><p>Jedis</p>
+<p>独立于spring操作redis的java客户端</p>
 </li>
-<li><p><code>@RestController</code>：与<code>@Controller</code>类似，但它还会自动将方法的返回值转换为JSON格式，常用于构建RESTful API。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RestController</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserController</span> &#123;<br>    <span class="hljs-comment">// 控制器方法...</span><br>&#125;<br></code></pre></td></tr></table></figure>
-</li>
-<li><p><code>@RequestMapping</code>：用于将请求映射到方法或类上。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Controller</span><br><span class="hljs-meta">@RequestMapping(&quot;/users&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserController</span> &#123;<br>    <span class="hljs-meta">@RequestMapping(&quot;/list&quot;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getUserList</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// 处理逻辑...</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;userList&quot;</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-</li>
-<li><p><code>@GetMapping</code>、<code>@PostMapping</code>、<code>@PutMapping</code>、<code>@DeleteMapping</code>：用于将GET、POST、PUT、DELETE请求映射到方法上。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@RequestMapping(&quot;/users&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserController</span> &#123;<br>    <span class="hljs-meta">@GetMapping(&quot;/&#123;id&#125;&quot;)</span><br>    <span class="hljs-keyword">public</span> User <span class="hljs-title function_">getUser</span><span class="hljs-params">(<span class="hljs-meta">@PathVariable</span> Long id)</span> &#123;<br>        <span class="hljs-comment">// 处理逻辑...</span><br>        <span class="hljs-keyword">return</span> user;<br>    &#125;<br><br>    <span class="hljs-meta">@PostMapping</span><br>    <span class="hljs-keyword">public</span> User <span class="hljs-title function_">createUser</span><span class="hljs-params">(<span class="hljs-meta">@RequestBody</span> User user)</span> &#123;<br>        <span class="hljs-comment">// 处理逻辑...</span><br>        <span class="hljs-keyword">return</span> user;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-</li>
-<li><p><code>@PathVariable</code>：用于从URL路径中获取路径变量的值。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@RequestMapping(&quot;/users&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserController</span> &#123;<br>    <span class="hljs-meta">@GetMapping(&quot;/&#123;id&#125;&quot;)</span><br>    <span class="hljs-keyword">public</span> User <span class="hljs-title function_">getUser</span><span class="hljs-params">(<span class="hljs-meta">@PathVariable</span> Long id)</span> &#123;<br>        <span class="hljs-comment">// 处理逻辑...</span><br>        <span class="hljs-keyword">return</span> user;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-</li>
-<li><p><code>@RequestParam</code>：用于从请求参数中获取参数的值。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@RequestMapping(&quot;/users&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserController</span> &#123;<br>    <span class="hljs-meta">@GetMapping</span><br>    <span class="hljs-keyword">public</span> List&lt;User&gt; <span class="hljs-title function_">getUsers</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam(&quot;name&quot;)</span> String name)</span> &#123;<br>        <span class="hljs-comment">// 处理逻辑...</span><br>        <span class="hljs-keyword">return</span> userList;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-</li>
-<li><p><code>@RequestBody</code>：用于将请求体中的JSON或XML数据绑定到方法的参数上。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@RequestMapping(&quot;/users&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserController</span> &#123;<br>    <span class="hljs-meta">@PostMapping</span><br>    <span class="hljs-keyword">public</span> User <span class="hljs-title function_">createUser</span><span class="hljs-params">(<span class="hljs-meta">@RequestBody</span> User user)</span> &#123;<br>        <span class="hljs-comment">// 处理逻辑...</span><br>        <span class="hljs-keyword">return</span> user;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-</li>
-<li><p><code>@ResponseBody</code>：用于将方法的返回值直接作为响应体返回给客户端。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@RequestMapping(&quot;/users&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserController</span> &#123;<br>    <span class="hljs-meta">@GetMapping(&quot;/&#123;id&#125;&quot;)</span><br>    <span class="hljs-meta">@ResponseBody</span><br>    <span class="hljs-keyword">public</span> User <span class="hljs-title function_">getUser</span><span class="hljs-params">(<span class="hljs-meta">@PathVariable</span> Long id)</span> &#123;<br>        <span class="hljs-comment">// 处理逻辑...</span><br>        <span class="hljs-keyword">return</span> user;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-</li>
-<li><p><code>@ModelAttribute</code>：用于将请求参数绑定到方法的参数上，并将其添加到模型中。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Controller</span><br><span class="hljs-meta">@RequestMapping(&quot;/users&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserController</span> &#123;<br>    <span class="hljs-meta">@GetMapping(&quot;/&#123;id&#125;&quot;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getUser</span><span class="hljs-params">(<span class="hljs-meta">@PathVariable</span> Long id, <span class="hljs-meta">@ModelAttribute(&quot;user&quot;)</span> User user)</span> &#123;<br>        <span class="hljs-comment">// 处理逻辑...</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;userDetail&quot;</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-</li>
-<li><p><code>@Valid</code>：用于启用参数的校验。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@RequestMapping(&quot;/users&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserController</span> &#123;<br>    <span class="hljs-meta">@PostMapping</span><br>    <span class="hljs-keyword">public</span> User <span class="hljs-title function_">createUser</span><span class="hljs-params">(<span class="hljs-meta">@Valid</span> <span class="hljs-meta">@RequestBody</span> User user)</span> &#123;<br>        <span class="hljs-comment">// 处理逻辑...</span><br>        <span class="hljs-keyword">return</span> user;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>@ControllerAdvice<br>作用：<br>1、全局异常处理<br>2、全局数据绑定<br>3、全局数据预处理<br>示例:<br>使用 @ControllerAdvice 实现全局异常处理，只需要定义类，添加该注解即可定义方式如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@ControllerAdvice</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MyGlobalExceptionHandler</span> &#123;<br>    <span class="hljs-meta">@ExceptionHandler(Exception.class)</span><br>    <span class="hljs-keyword">public</span> ModelAndView <span class="hljs-title function_">customException</span><span class="hljs-params">(Exception e)</span> &#123;<br>        <span class="hljs-type">ModelAndView</span> <span class="hljs-variable">mv</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ModelAndView</span>();<br>        mv.addObject(<span class="hljs-string">&quot;message&quot;</span>, e.getMessage());<br>        mv.setViewName(<span class="hljs-string">&quot;myerror&quot;</span>);<br>        <span class="hljs-keyword">return</span> mv;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-</li>
-<li><p><code>@ExceptionHandler</code>：处理控制器方法中抛出的异常。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@ControllerAdvice</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">GlobalExceptionHandler</span> &#123;<br>    <span class="hljs-meta">@ExceptionHandler(Exception.class)</span><br>    <span class="hljs-keyword">public</span> ResponseEntity&lt;String&gt; <span class="hljs-title function_">handleException</span><span class="hljs-params">(Exception ex)</span> &#123;<br>        <span class="hljs-comment">// 处理异常...</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ResponseEntity</span>&lt;&gt;(<span class="hljs-string">&quot;Error occurred&quot;</span>, HttpStatus.INTERNAL_SERVER_ERROR);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>Lettuce</p>
+<p>高阶操作redis的java客户端</p>
+<p>使用lettuce做redis连接池(复用)</p>
+<ol>
+<li>导入依赖</li>
 </ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- https://mvnrepository.com/artifact/io.lettuce/lettuce-core --&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.lettuce<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>lettuce-core<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>6.1.8.RELEASE<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>配置连接池:</li>
+</ol>
+</li>
+<li><p>Redisson</p>
+<p>分布式操作redis的java客户端</p>
+</li>
+</ol>
+<p>– etcd</p>
+<p>– memcached</p>
+<p>– 单机缓存</p>
+<p>– ehcache</p>
+<p>– 本地缓存</p>
+<p>– guava</p>
+<h2 id="spring-data-redis"><a href="#spring-data-redis" class="headerlink" title="spring data redis"></a>spring data redis</h2><ol>
+<li>redis数据结构</li>
+</ol>
+<ul>
+<li><p>string</p>
+</li>
+<li><p>set</p>
+</li>
+<li><p>zset</p>
+</li>
+<li><p>hash</p>
+</li>
+<li><p>list</p>
+</li>
+</ul>
+<ol start="2">
+<li>高级数据结构</li>
+</ol>
+<ul>
+<li><p>boomfilter（布隆过滤器）</p>
+</li>
+<li><p>geo(计算地理位置)</p>
+</li>
+<li><p>hyperloglog(pv&#x2F;uv)</p>
+</li>
+<li><p>pub&#x2F;sub(发布订阅，类似消息队列)</p>
+</li>
+<li><p>BitMap(用于存储大量被压缩的信息)</p>
+</li>
+</ul>
+<p>首页展示推荐用户内容短时间内不会改变的数据，使用缓存redis，在六条数据的情况下，加上缓存之后查询速度由90ms左右变为30ms左右，虽然数据量小存在偶然性，但是在大数据量情况下，缓存的查询速率会快很多。</p>
+<h2 id="缓存预热"><a href="#缓存预热" class="headerlink" title="缓存预热"></a>缓存预热</h2><ol>
+<li>定时</li>
+<li>模拟触发(手动触发)</li>
+</ol>
+<p><strong><font color="greeny">缓存预热的问题对象：</font></strong></p>
+<p>当数据更新时，第一个用户的请求总是会查询数据库，所以第一个人查询的速度会很慢，如果第一个使用的人是你的老板，那你直接可以毕业了。</p>
+<p><strong>实现</strong></p>
+<p>定时任务，刷新所有用户的推荐列表</p>
+<p><strong>重要</strong></p>
+<ol>
+<li>缓存预热的使用场景：新增，修改信息少，总用户多</li>
+<li>缓存空间不能太大，预留给其他缓存空间</li>
+<li>缓存数据的周期，看场景</li>
+</ol>
+<h2 id="定时任务开启"><a href="#定时任务开启" class="headerlink" title="定时任务开启"></a>定时任务开启</h2><h3 id="1、xxl-job-开源定时任务框架"><a href="#1、xxl-job-开源定时任务框架" class="headerlink" title="1、xxl-job(开源定时任务框架)"></a>1、xxl-job(开源定时任务框架)</h3><h3 id="2、spring-scheduled"><a href="#2、spring-scheduled" class="headerlink" title="2、spring scheduled"></a>2、spring scheduled</h3><p>开启：</p>
+<ol>
+<li>SpringBootApplication里加上<code>@EnableScheduling</code>注解</li>
+<li>定时任务类上加上<code>@Component</code>,注册为Bean，交给容器管理</li>
+<li>任务方法上加上<code>@Scheduled(cron = &quot;0 4 0 * * *&quot;)</code></li>
+<li>@Scheduled用于编写一个定时任务或方法，<code>cron = &quot;0 4 0 * * *&quot;</code>表示该方法将在每天的凌晨0点4分触发执行。</li>
+</ol>
+<p>cron表达式：</p>
+<ul>
+<li><p>第一部分为 “0” 表示任务将在每一分钟的第0秒开始执行。</p>
+</li>
+<li><p>第二部分为 “4” 表示任务将在每小时的第4分钟执行。</p>
+</li>
+<li><p>第三部分为 “0” 表示任务将在每天的0点执行。</p>
+</li>
+<li><p>第四、第五和第六部分使用 “ * “ 表示通配符，表示每天、每月和每周都适用。</p>
+</li>
+</ul>
 
                 
               </div>
@@ -358,7 +411,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%A4%87%E5%BF%98%E5%BD%95/" class="category-chain-item">备忘录</a>
+  <a href="/categories/%E7%BC%93%E5%AD%98/" class="category-chain-item">缓存</a>
   
   
 
@@ -373,11 +426,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/spring/" class="print-no-link">#spring</a>
+        <a href="/tags/%E4%BC%98%E5%8C%96/" class="print-no-link">#优化</a>
       
-        <a href="/tags/%E6%B3%A8%E8%A7%A3/" class="print-no-link">#注解</a>
-      
-        <a href="/tags/restful%E9%A3%8E%E6%A0%BC/" class="print-no-link">#restful风格</a>
+        <a href="/tags/%E7%BC%93%E5%AD%98/" class="print-no-link">#缓存</a>
       
     </div>
   
@@ -389,8 +440,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>springMvc注解及其用法</div>
-      <div>http://zhouzhoubao.xyz/2023/08/16/springMvc注解及其用法/</div>
+      <div>缓存</div>
+      <div>http://zhouzhoubao.xyz/2023/09/14/缓存/</div>
     </div>
     <div class="license-meta">
       
@@ -402,13 +453,13 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年8月16日</div>
+          <div>2023年9月14日</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2023年8月16日</div>
+          <div>2023年9月14日</div>
         </div>
       
       
@@ -439,9 +490,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/09/14/%E7%BC%93%E5%AD%98/" title="缓存">
+                      <a href="/2023/09/14/Yang-Api/" title="Yang-Api">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">缓存</span>
+                        <span class="hidden-mobile">Yang-Api</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -449,8 +500,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/08/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E5%AD%97%E6%AE%B5%E8%AE%BE%E8%AE%A1%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" title="数据库表字段设计注意事项">
-                        <span class="hidden-mobile">数据库表字段设计注意事项</span>
+                      <a href="/2023/08/16/springMvc%E6%B3%A8%E8%A7%A3%E5%8F%8A%E5%85%B6%E7%94%A8%E6%B3%95/" title="springMvc注解及其用法">
+                        <span class="hidden-mobile">springMvc注解及其用法</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

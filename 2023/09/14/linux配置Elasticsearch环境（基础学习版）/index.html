@@ -1,0 +1,958 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/fluid.png">
+  <link rel="icon" href="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="李成阳">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="linux配置Elasticsearch环境（基础学习版）jdk配置 编辑环境  1vim &#x2F;etc&#x2F;profile   export JAVA_HOME&#x3D;&#x2F;opt&#x2F;resource&#x2F;jdk1.8 export PATH&#x3D;$PATH:$JAVA_HOME&#x2F;bin :wq 保存并关闭文件。 123453. 使配置的环境变量生效：&#96;&#96;&#96;bashsource &#x2F;etc&#x2F;profile   验证Java的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux配置Elasticsearch环境（基础学习版）">
+<meta property="og:url" content="http://zhouzhoubao.xyz/2023/09/14/linux%E9%85%8D%E7%BD%AEElasticsearch%E7%8E%AF%E5%A2%83%EF%BC%88%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%89%88%EF%BC%89/index.html">
+<meta property="og:site_name" content="LCY的博客">
+<meta property="og:description" content="linux配置Elasticsearch环境（基础学习版）jdk配置 编辑环境  1vim &#x2F;etc&#x2F;profile   export JAVA_HOME&#x3D;&#x2F;opt&#x2F;resource&#x2F;jdk1.8 export PATH&#x3D;$PATH:$JAVA_HOME&#x2F;bin :wq 保存并关闭文件。 123453. 使配置的环境变量生效：&#96;&#96;&#96;bashsource &#x2F;etc&#x2F;profile   验证Java的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230814135428086.png">
+<meta property="og:image" content="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230814135342260.png">
+<meta property="og:image" content="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230814195234385.png">
+<meta property="article:published_time" content="2023-09-14T02:22:50.000Z">
+<meta property="article:modified_time" content="2023-09-14T02:24:28.824Z">
+<meta property="article:author" content="李成阳">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="Elasticsearch">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230814135428086.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>linux配置Elasticsearch环境（基础学习版） - LCY的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zhouzhoubao.xyz","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>周李</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="linux配置Elasticsearch环境（基础学习版）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        李成阳
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-09-14 10:22" pubdate>
+          2023年9月14日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          72 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">linux配置Elasticsearch环境（基础学习版）</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年9月14日 上午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="linux配置Elasticsearch环境（基础学习版）"><a href="#linux配置Elasticsearch环境（基础学习版）" class="headerlink" title="linux配置Elasticsearch环境（基础学习版）"></a>linux配置Elasticsearch环境（基础学习版）</h1><h2 id="jdk配置"><a href="#jdk配置" class="headerlink" title="jdk配置"></a>jdk配置</h2><ol>
+<li>编辑环境</li>
+</ol>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">vim <span class="hljs-regexp">/etc/</span>profile<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><pre><code class="shell">export JAVA_HOME=/opt/resource/jdk1.8
+export PATH=$PATH:$JAVA_HOME/bin
+:wq 保存并关闭文件。
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs gradle"><br><span class="hljs-number">3</span>. 使配置的环境变量生效：<br><br>```bash<br><span class="hljs-keyword">source</span> <span class="hljs-regexp">/etc/</span>profile<br></code></pre></td></tr></table></figure>
+</code></pre>
+</li>
+<li><p>验证Java的安装：</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">java -version<br></code></pre></td></tr></table></figure>
+
+<h2 id="Elasticsearch裸奔配置"><a href="#Elasticsearch裸奔配置" class="headerlink" title="Elasticsearch裸奔配置"></a>Elasticsearch裸奔配置</h2><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>修改elasticsearch配置<br>执行命令:<br><code>vim /opt/resource/elasticsearch-7.17.9/config/elasticsearch.yml</code></p>
+<p>修改数据和日志目录<br>这里可以不用修改，如果不修改，默认放在elasticsearch根目录下</p>
+<p>数据目录位置</p>
+<p><code>path.data: /home/新用户名称/elasticsearch/data </code></p>
+<p>日志目录位置</p>
+<p><code>path.logs: /home/新用户名称/elasticsearch/logs </code><br>修改绑定的ip允许远程访问</p>
+<p>#默认只允许本机访问,绑定到0.0.0.0，允许任何ip来访问</p>
+<p><code>network.host: 0.0.0.0 </code><br>初始化节点名称</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">cluster.name: elasticsearch <br>node.name: es-node0<br>cluster.initial_master_nodes: [&quot;es-node0&quot;]<br></code></pre></td></tr></table></figure>
+
+<p>修改端口号（非必须）</p>
+<p>http.port: 9200</p>
+<p>修改如下：</p>
+<p><img src="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230814135428086.png" srcset="/img/loading.gif" lazyload alt="image-20230814135428086"></p>
+<p>修改<code>vim /opt/resource/elasticsearch-7.17.9/config/kibana.yml</code></p>
+<p><img src="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230814135342260.png" srcset="/img/loading.gif" lazyload alt="image-20230814135342260"></p>
+<p>将jdk修改为es中自带jdk的配置目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">export JAVA_HOME=/usr/local/elasticsearch-7.13.2/jdk<br>export PATH=$JAVA_HOME/bin:$PATH<br><br>if [ -x &quot;$JAVA_HOME/bin/java&quot; ]; then<br>        JAVA=&quot;/usr/local/elasticsearch-7.13.2/jdk/bin/java&quot;<br>else<br>        JAVA=`which java`<br>fi<br></code></pre></td></tr></table></figure>
+
+<p>修改后执行<code>source /etc/profile</code>使配置生效</p>
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>切换到<code>user-es</code>用户su user-es</p>
+<p><code>cd /opt/resource/elasticsearch-7.17.9/bin</code></p>
+<p><code>./elasticsearch</code></p>
+<p><code>./elasticsearch &amp; </code> 后台运行命令</p>
+<p>关闭命令： <code>CTRL+C</code></p>
+<p><a target="_blank" rel="noopener" href="http://192.168.161.128:9200/">http://192.168.161.128:9200</a></p>
+<p>切换到<code>user-es</code>用户<code>su user-es</code></p>
+<p><code>cd /opt/resource/kibana-7.17.9-linux-x86_64/bin</code></p>
+<p><code>./kibana</code></p>
+<p>kibana中文配置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">编辑kibana.yml</span><br><span class="hljs-string">vim</span> <span class="hljs-string">/opt/resource/kibana-7.17.9-linux-x86_64/config/kibana.yml</span><br><span class="hljs-string">加入一行配置：</span><br><span class="hljs-attr">i18n.locale:</span> <span class="hljs-string">&quot;zh-CN&quot;</span><br><span class="hljs-comment">#或者取消注释: #i18n.locale: &quot;en&quot;   --&gt; &quot;zh-CN&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><code>./kibana &amp; </code>后台运行命令</p>
+<p>关闭命令：<code> CTRL+C</code></p>
+<p><a target="_blank" rel="noopener" href="http://192.168.161.128:5601/">http://192.168.161.128:5601</a></p>
+<h3 id="Bug解决"><a href="#Bug解决" class="headerlink" title="Bug解决"></a>Bug解决</h3><h4 id="Bug1"><a href="#Bug1" class="headerlink" title="Bug1"></a>Bug1</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">ERROR: [2] bootstrap checks failed. You must address the points described in the following [2] lines before starting Elasticsearch.<br>bootstrap check failure [1] of [2]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>elasticsearch用户拥有的内存权限太小，至少需要262144，解决办法：<br>在 &#x2F;etc&#x2F;sysctl.conf 文件最后添加如下内容，即可永久修改</p>
+<p>切换到root用户<br>执行命令：<code>su root</code></p>
+<p>执行命令</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">vim <span class="hljs-regexp">/etc/</span>sysctl.conf<br></code></pre></td></tr></table></figure>
+
+<p>添加如下内容</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">vm.max_map_count</span>=<span class="hljs-number">262144</span><br></code></pre></td></tr></table></figure>
+
+<p>保存退出，刷新配置文件</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">sysctl -<span class="hljs-selector-tag">p</span><br></code></pre></td></tr></table></figure>
+
+<p>切换user-es用户，继续启动</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">su <span class="hljs-keyword">user</span>-es<br></code></pre></td></tr></table></figure>
+
+<p>启动es服务</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/opt/</span>resource<span class="hljs-regexp">/elasticsearch-7.17.9/</span>bin/elasticsearch<br></code></pre></td></tr></table></figure>
+</blockquote>
+<h4 id="Bug2"><a href="#Bug2" class="headerlink" title="Bug2"></a>Bug2</h4><figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs smali">bootstrap<span class="hljs-built_in"> check </span>failure [2] of [2]: the default discovery settings are unsuitable for production use; at least one of [discovery.seed_hosts, discovery.seed_providers, cluster.initial_master_nodes] must be configured<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这个错误是由于在生产环境中使用默认的发现设置而引起的。为了解决这个问题，您需要配置至少一个发现设置项（<code>discovery.seed_hosts</code>、<code>discovery.seed_providers</code> 或 <code>cluster.initial_master_nodes</code>）。</p>
+<p><strong>集群环境解决：</strong></p>
+<p>在 Elasticsearch 的配置文件（<code>elasticsearch.yml</code>）中，找到以下行：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># cluster.initial_master_nodes: [&quot;node-1&quot;,&quot;node-2&quot;]</span><br></code></pre></td></tr></table></figure>
+
+<p>取消注释 <code>cluster.initial_master_nodes</code> 行，并将其设置为至少一个 Elasticsearch 节点的名称或 IP 地址。例如：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">cluster.initial_master_nodes:</span> [<span class="hljs-string">&quot;node-1&quot;</span>,<span class="hljs-string">&quot;node-2&quot;</span>]<br></code></pre></td></tr></table></figure>
+
+<p>如果您使用的是 Elasticsearch 7.0 及更高版本，推荐使用 <code>discovery.seed_hosts</code> 设置项。找到以下行：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># discovery.seed_hosts: []</span><br></code></pre></td></tr></table></figure>
+
+<p>取消注释 <code>discovery.seed_hosts</code> 行，并将其设置为至少一个 Elasticsearch 节点的主机名或 IP 地址。例如：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">discovery.seed_hosts:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-number">192.168</span><span class="hljs-number">.161</span><span class="hljs-number">.128</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>单机解决方法：</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">cluster.name:</span> <span class="hljs-string">elasticsearch</span> <span class="hljs-string">//可以忽略</span><br><span class="hljs-attr">node.name:</span> <span class="hljs-string">es-node0</span><br><span class="hljs-attr">cluster.initial_master_nodes:</span> [<span class="hljs-string">&quot;es-node0&quot;</span>]<br></code></pre></td></tr></table></figure>
+</blockquote>
+<p><code>chmod 777  要读写的文件或目录名</code></p>
+<h4 id="Bug3"><a href="#Bug3" class="headerlink" title="Bug3"></a>Bug3</h4><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gradle">启动kibana报错：<br>FATAL  Error: Unable to <span class="hljs-keyword">write</span> to UUID <span class="hljs-keyword">file</span> at <span class="hljs-regexp">/opt/</span>resource<span class="hljs-regexp">/kibana-7.17.9-linux-x86_64/</span>data<span class="hljs-regexp">/uuid. Ensure Kibana has sufficient permissions to read /</span> <span class="hljs-keyword">write</span> to <span class="hljs-keyword">this</span> <span class="hljs-keyword">file</span>.  Error was: EACCES<br></code></pre></td></tr></table></figure>
+
+<p><strong>解决：修改文件的读写权限：</strong></p>
+<p>切换<code>root</code>用户，赋予文件读写权限：<code>chmod 777 /opt/resource/kibana-7.17.9-linux-x86_64/config/kibana.yml</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">启动ES报错:<br>ERROR: [1] bootstrap checks failed. You must address the points described in the following [1] lines before starting Elasticsearch. bootstrap check failure [1] of [1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144] ERROR: Elasticsearch did not exit normally - check the logs at /opt/resource/elasticsearch-7.17.9/logs/elasticsearch.log<br></code></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>这个错误是由于Elasticsearch的启动检查失败导致的。错误消息中提到了一个具体的问题：<code>max virtual memory areas vm.max_map_count</code> 的值太低。</p>
+<p><code>vm.max_map_count</code> 是一个内核参数，它限制了一个进程可以拥有的虚拟内存区域的数量。<code>Elasticsearch</code>在启动时需要更多的虚拟内存区域来正常运行。</p>
+<p>要解决这个问题，您需要增加 <code>vm.max_map_count</code> 的值。这可以通过以下步骤完成：</p>
+<ol>
+<li><p>使用管理员权限登录到您的系统。</p>
+</li>
+<li><p>打开终端并执行以下命令来临时增加</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">vm</span>.max_map_count<br></code></pre></td></tr></table></figure>
+
+<p>的值：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo sysctl -w vm.max_map_count=262144<br></code></pre></td></tr></table></figure>
+
+<p>这将临时增加</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">vm</span>.max_map_count<br></code></pre></td></tr></table></figure>
+
+<p>的值为 262144。请注意，这种更改只在当前会话中有效，系统重启后会恢复为默认值。</p>
+</li>
+<li><p>尝试重新启动 <code>Elasticsearch</code>，看是否仍然出现相同的错误。如果问题仍然存在，请继续以下步骤。</p>
+</li>
+<li><p>永久增加 <code>vm.max_map_count</code>的值，以便在系统重启后仍然生效。</p>
+</li>
+<li><p>打开 <code>/etc/sysctl.conf</code>文件进行编辑：<code>sudo nano /etc/sysctl.conf</code></p>
+</li>
+<li><p>在文件的末尾添加以下行：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">vm.max_map_count</span>=<span class="hljs-number">262144</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>保存并关闭文件。然后执行以下命令使更改生效：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo sysctl -p<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>尝试重新启动<code> Elasticsearch</code>，应该不再出现相同的错误。</p>
+</li>
+</ol>
+</blockquote>
+<h4 id="Bug4"><a href="#Bug4" class="headerlink" title="Bug4"></a>Bug4</h4><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs stylus">报错：<br><span class="hljs-selector-attr">[es-node0]</span> error updating geoip database <span class="hljs-selector-attr">[GeoLite2-Country.mmdb]</span><br><span class="hljs-selector-attr">[2023-08-14T13:20:16,526]</span><span class="hljs-selector-attr">[ERROR]</span><span class="hljs-selector-attr">[o.e.i.g.GeoIpDownloader  ]</span> <span class="hljs-selector-attr">[es-node0]</span> error updating geoip database <span class="hljs-selector-attr">[GeoLite2-City.mmdb]</span><br>java<span class="hljs-selector-class">.net</span><span class="hljs-selector-class">.SocketException</span>: Connection reset<br><br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="Bug5"><a href="#Bug5" class="headerlink" title="Bug5"></a>Bug5</h4><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs stylus">报错：<br>at TCPConnectWrap<span class="hljs-selector-class">.afterConnect</span> <span class="hljs-selector-attr">[as oncomplete]</span> (node:net:<span class="hljs-number">1278</span>:<span class="hljs-number">16</span>) &#123;<br>  errno: -<span class="hljs-number">111</span>,<br>  <span class="hljs-selector-tag">code</span>: <span class="hljs-string">&#x27;ECONNREFUSED&#x27;</span>,<br>  syscall: <span class="hljs-string">&#x27;connect&#x27;</span>,<br>  <span class="hljs-selector-tag">address</span>: <span class="hljs-string">&#x27;127.0.0.1&#x27;</span>,<br>  port: <span class="hljs-number">9200</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="Bug6"><a href="#Bug6" class="headerlink" title="Bug6"></a>Bug6</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//kibana可视化页面提示，server.publicBaseUrl 缺失，在生产环境中运行时应配置。某些功能可能运行不正常</span><br></code></pre></td></tr></table></figure>
+
+<p>解决：</p>
+<blockquote>
+<p>当您在 Kibana 中看到 <code>server.publicBaseUrl</code> 缺失的警告时，这意味着您需要配置 <code>server.publicBaseUrl</code> 设置。这个设置用于指定 Kibana 的公共基本 URL，以便在生成的链接中使用。</p>
+<p>要解决这个问题，您可以按照以下步骤进行操作：</p>
+<ol>
+<li>打开 Kibana 的配置文件 <code>kibana.yml</code>。</li>
+<li>在文件中找到 <code>server.publicBaseUrl</code> 设置（如果不存在，请添加它）。</li>
+<li>将 <code>server.publicBaseUrl</code> 设置为您的 Kibana 的公共基本 URL。例如，如果您的 Kibana 是通过 <code>http://example.com/kibana</code> 访问的，那么您的设置将如下所示：</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">server.publicBaseUrl:</span> <span class="hljs-string">&quot;http://example.com/kibana&quot;</span><br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>保存配置文件并重新启动 Kibana。</li>
+</ol>
+<p>重新启动后，警告应该不再显示，并且 Kibana 的某些功能（如生成的链接）应该能够正常工作。</p>
+<p>请注意，<code>server.publicBaseUrl</code> 设置的值应该是您实际使用的公共基本 URL，确保它与您的部署环境相匹配。</p>
+<p>如果你只是本地学习，那么将你的server.publicBaseUrl配置为本地id即可</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">server.publicBaseUrl:</span> <span class="hljs-string">&quot;http://192.168.161.128:5601&quot;</span><br></code></pre></td></tr></table></figure>
+
+
+</blockquote>
+<h4 id="Bug7"><a href="#Bug7" class="headerlink" title="Bug7"></a>Bug7</h4><p>ik插件版本号与elasticsearch版本号不一致报错</p>
+<blockquote>
+<p>解决方案：修改   &#x2F;opt&#x2F;resource&#x2F;elasticsearch-7.17.9&#x2F;plugins&#x2F;ik&#x2F;plugin-descriptor.properties文件内容，将版本号改为一致</p>
+<p><img src="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230814195234385.png" srcset="/img/loading.gif" lazyload alt="image-20230814195234385"></p>
+</blockquote>
+<h2 id="Elasticsearch开启密码"><a href="#Elasticsearch开启密码" class="headerlink" title="Elasticsearch开启密码"></a>Elasticsearch开启密码</h2><h3 id="配置："><a href="#配置：" class="headerlink" title="配置："></a>配置：</h3><ol>
+<li>修改es的配置文件：&#x2F;opt&#x2F;resource&#x2F;elasticsearch-7.17.9&#x2F;config&#x2F;elasticsearch.yml，添加如下配置</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">xpack.security.enabled:</span> <span class="hljs-literal">true</span><br><span class="hljs-attr">xpack.license.self_generated.type:</span> <span class="hljs-string">basic</span><br><span class="hljs-attr">xpack.security.transport.ssl.enabled:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>移动到<code>/opt/resource/elasticsearch-7.17.9/bin</code>目录下执行命令</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">./elasticsearch-setup-passwords interactive<br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>设置六个账号的密码：elastic,apm_system,kibana,logstash_system,beats_system,remote_monitoring_user</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment">#密码自己随意设置就好</span><br><span class="hljs-attr">elastic:</span> <span class="hljs-number">158574</span><br><span class="hljs-attr">apm_system:</span> <span class="hljs-number">112830</span><br><span class="hljs-attr">kibana_system:</span> <span class="hljs-number">158574</span><br><span class="hljs-attr">logstash_system:</span> <span class="hljs-number">112830</span><br><span class="hljs-attr">beats_system:</span> <span class="hljs-number">112830</span><br><span class="hljs-attr">remote_monitoring_user:</span> <span class="hljs-number">158574</span><br></code></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>修改<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=kibana&spm=1001.2101.3001.7020">kibana</a>的配置<code>kibana.yml</code>：</li>
+</ol>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">elasticsearch.username:</span> <span class="hljs-string">&quot;elastic&quot;</span><br><span class="hljs-symbol">elasticsearch.password:</span> <span class="hljs-string">&quot;158574&quot;</span><br></code></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>elasticsearch修改密码的命令如下：</li>
+</ol>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c">curl -H <span class="hljs-string">&quot;Content-Type:application/json&quot;</span> -XPOST -u elastic &#x27;http://192.168.161.128:<span class="hljs-number">9200</span>/_xpack/security/user/elastic/_password&#x27; -d &#x27;&#123; &quot;password&quot; : &quot;<span class="hljs-number">123456</span>&quot; &#125;&#x27;<br></code></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>重启es和kibana访问<a href="http://192.168.161.128:9200，需要输入账号密码才可以访问。">http://192.168.161.128:9200，需要输入账号密码才可以访问。</a></li>
+</ol>
+<h2 id="Elasticsearch配置ik分词器（中文友好）"><a href="#Elasticsearch配置ik分词器（中文友好）" class="headerlink" title="Elasticsearch配置ik分词器（中文友好）"></a>Elasticsearch配置ik分词器（中文友好）</h2><p><strong>一定下载与Elasticsearch的版本一致或相近的版本</strong></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/medcl/elasticsearch-analysis-ik/releases?q=7.17.7&expanded=true">github下载地址</a></p>
+<p>ik分词器插件下载后上传至&#x2F;opt&#x2F;resource&#x2F;elasticsearch-7.17.9&#x2F;plugins&#x2F;目录下</p>
+<p>新建目录 mkdir ik </p>
+<p>进入ik目录，上传下载好的ik分词器</p>
+<p>解压  unzip + 分词器包名</p>
+<p>解压后重启elasticsearch即可</p>
+<p>测试分词器：分词器种类有：ik_max_word（将文本做最细粒度的拆分），ik_smart（最粗粒度的拆分）</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs json">POST _analyze<br><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;analyzer&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;ik_max_word&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;text&quot;</span><span class="hljs-punctuation">:</span>     <span class="hljs-string">&quot;你好我是李成阳，你是真爱粉吗，我是ikun。&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>2、扩展词典使用<br>         扩展词就是不想让那些词被分开，让他们组成一个此，比如长春桥</p>
+<pre><code class="hljs">1、自定义扩展词库
+ 进入到config/analysis-ik（插件安装方式）或/usr/elasticsearch/plugins/analysis-ik/config/目录下新增自定义词典
+ 
+ vi cc_ext_dict.dic 输入：长春桥       
+
+2、自定义的扩展词典文件添加到IKAnalyzer.cfg.xml配置中
+ vi IKAnalyzer.cfg.xml               
+
+3、重启es
+/usr/elasticsearch/bin/elasticsearch
+</code></pre>
+<p>3、停用词典使用<br>    停用词就是在文本中出现频率很高，但是对语义产生不了多大的影响，比如中文的“的、哦、了、呢”等，这些词称为停用词。一般经常会被过滤掉不会进行索引</p>
+<pre><code class="hljs">1、自定义停用词库
+进入到config/analysis-ik（插件安装方式）或/usr/elasticsearch/plugins/analysis-ik/config/目录下新增自定义词典
+
+vi cc_stop_dict.dic 输入 的、哦、了、呢
+</code></pre>
+<p>​        </p>
+<pre><code class="hljs">2、添加到IKAnalyzer.cfg.xml配置中
+
+
+3、重启es
+/usr/elasticsearch/bin/elasticsearch
+</code></pre>
+<p> 4、同义词典使用：<br>        意思相同的词，在搜索时应该同时查出来，比如“馒头”和“馍”，这种情况叫做同义词查询</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><code class="hljs json">注意：扩展词和停用词时在索引的时候使用，同义词是检索的时候<br><br><span class="hljs-number">1</span>、创建synonym.txt<br>vi synonym.txt 输入同义词<br><br><span class="hljs-number">2</span>、重启es<br>/usr/elasticsearch/bin/elasticsearch<br><br><span class="hljs-number">3</span>、使用是指定synonym.text<br>前缀路径为：/usr/elasticsearch/config/ <br><br>analysis<span class="hljs-punctuation">:</span>为自己创建的目录<br><br>PUT /cc003<br><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;settings&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;analysis&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;filter&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;word_sync&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>          <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;synonym&quot;</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-attr">&quot;synonyms_path&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;analysis/synonym.txt&quot;</span><br>        <span class="hljs-punctuation">&#125;</span><br>      <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;analyzer&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;ik_sync_max_word&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>          <span class="hljs-attr">&quot;filter&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>            <span class="hljs-string">&quot;word_sync&quot;</span><br>          <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;custom&quot;</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-attr">&quot;tokenizer&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;ik_max_word&quot;</span><br>        <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;ik_sync_smart&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>          <span class="hljs-attr">&quot;filter&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>            <span class="hljs-string">&quot;word_sync&quot;</span><br>          <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;custom&quot;</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-attr">&quot;tokenizer&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;ik_smart&quot;</span><br>        <span class="hljs-punctuation">&#125;</span><br>      <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;mappings&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;properties&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;text&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;analyzer&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;ik_sync_max_word&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;search_analyzer&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;ik_sync_max_word&quot;</span><br>      <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br><br><span class="hljs-number">4</span>、添加内容<br>POST /cc003/_doc/<span class="hljs-number">1</span><br><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;馒头你们哪里叫什么&quot;</span><br><span class="hljs-punctuation">&#125;</span><br><br><span class="hljs-number">5</span>、查询<br>POST /cc003/_doc/_search<br><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;query&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;match&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;馍&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="Elasticsearch语法"><a href="#Elasticsearch语法" class="headerlink" title="Elasticsearch语法"></a>Elasticsearch语法</h2><p>kibana  DevTools(本质:restful请求)</p>
+<p><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/6.0/query-dsl-match-all-query.html">中文文档</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38011415/article/details/111862429">7x版本DSL语法大全</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/6.0">DSL语法官网文档</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%99%E7%A8%8B/" class="category-chain-item">教程</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/linux/" class="print-no-link">#linux</a>
+      
+        <a href="/tags/Elasticsearch/" class="print-no-link">#Elasticsearch</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>linux配置Elasticsearch环境（基础学习版）</div>
+      <div>http://zhouzhoubao.xyz/2023/09/14/linux配置Elasticsearch环境（基础学习版）/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>李成阳</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年9月14日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年9月14日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/09/14/AIGC%E6%99%BA%E8%83%BD%E5%88%86%E6%9E%90%E5%B0%8F%E5%8A%A9%E6%89%8B/" title="AIGC智能分析小助手">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">AIGC智能分析小助手</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/09/14/Yang-Api/" title="Yang-Api">
+                        <span class="hidden-mobile">Yang-Api</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="lv-container" data-id="city" data-uid="MTAyMC81ODc2MC8zNTIyMg==">
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <!-- 网易云音乐播放器 --> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"> <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script> <div id="player" class="aplayer aplayer-withlist aplayer-fixed" data-id="5155575627" data-server="netease" data-type="playlist" data-order="random" data-autoplay="true" data-fixed="true" data-listfolded="true" data-theme="#2D8CF0"></div>
+<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

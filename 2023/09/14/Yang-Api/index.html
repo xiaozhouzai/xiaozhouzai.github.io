@@ -1,0 +1,927 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/fluid.png">
+  <link rel="icon" href="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="李成阳">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="yangapi_backend数据库表设计123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051use api_backend;-- 用户表create table if not exists user(    id           bigint auto_inc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Yang-Api">
+<meta property="og:url" content="http://zhouzhoubao.xyz/2023/09/14/Yang-Api/index.html">
+<meta property="og:site_name" content="LCY的博客">
+<meta property="og:description" content="yangapi_backend数据库表设计123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051use api_backend;-- 用户表create table if not exists user(    id           bigint auto_inc">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230914091950696.png">
+<meta property="og:image" content="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230914091605034.png">
+<meta property="og:image" content="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230914095725115.png">
+<meta property="og:image" content="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230804190344529.png">
+<meta property="og:image" content="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230804190605667.png">
+<meta property="og:image" content="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230804194122778.png">
+<meta property="og:image" content="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230804195142417.png">
+<meta property="og:image" content="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230804232907284.png">
+<meta property="og:image" content="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230804233437537.png">
+<meta property="og:image" content="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230804233634344.png">
+<meta property="og:image" content="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230805004753476.png">
+<meta property="og:image" content="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230805092834963.png">
+<meta property="og:image" content="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230811103226241.png">
+<meta property="og:image" content="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230811125003825.png">
+<meta property="og:image" content="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230811125515389.png">
+<meta property="article:published_time" content="2023-09-14T01:07:51.000Z">
+<meta property="article:modified_time" content="2023-09-14T02:22:20.649Z">
+<meta property="article:author" content="李成阳">
+<meta property="article:tag" content="项目">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230914091950696.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Yang-Api - LCY的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zhouzhoubao.xyz","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>周李</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Yang-Api"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        李成阳
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-09-14 09:07" pubdate>
+          2023年9月14日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          14k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          115 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Yang-Api</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年9月14日 上午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="yangapi-backend"><a href="#yangapi-backend" class="headerlink" title="yangapi_backend"></a>yangapi_backend</h1><h2 id="数据库表设计"><a href="#数据库表设计" class="headerlink" title="数据库表设计"></a>数据库表设计</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs sql">use api_backend;<br><br><span class="hljs-comment">-- 用户表</span><br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> if <span class="hljs-keyword">not</span> <span class="hljs-keyword">exists</span> <span class="hljs-keyword">user</span><br>(<br>    id           <span class="hljs-type">bigint</span> auto_increment comment <span class="hljs-string">&#x27;id&#x27;</span> <span class="hljs-keyword">primary</span> key,<br>    userName     <span class="hljs-type">varchar</span>(<span class="hljs-number">256</span>)                           <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;用户昵称&#x27;</span>,<br>    userAccount  <span class="hljs-type">varchar</span>(<span class="hljs-number">256</span>)                           <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;账号&#x27;</span>,<br>    userAvatar   <span class="hljs-type">varchar</span>(<span class="hljs-number">1024</span>)                          <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;用户头像&#x27;</span>,<br>    gender       tinyint                                <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;性别&#x27;</span>,<br>    userRole     <span class="hljs-type">varchar</span>(<span class="hljs-number">256</span>) <span class="hljs-keyword">default</span> <span class="hljs-string">&#x27;user&#x27;</span>            <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;用户角色：user / admin&#x27;</span>,<br>    userPassword <span class="hljs-type">varchar</span>(<span class="hljs-number">512</span>)                           <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;密码&#x27;</span>,<br>    createTime   datetime     <span class="hljs-keyword">default</span> <span class="hljs-operator">*</span><span class="hljs-built_in">CURRENT_TIMESTAMP</span><span class="hljs-operator">*</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;创建时间&#x27;</span>,<br>    updateTime   datetime     <span class="hljs-keyword">default</span> <span class="hljs-operator">*</span><span class="hljs-built_in">CURRENT_TIMESTAMP</span><span class="hljs-operator">*</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> <span class="hljs-keyword">on</span> <span class="hljs-keyword">update</span> <span class="hljs-operator">*</span><span class="hljs-built_in">CURRENT_TIMESTAMP</span><span class="hljs-operator">*</span> comment <span class="hljs-string">&#x27;更新时间&#x27;</span>,<br>    isDelete     tinyint      <span class="hljs-keyword">default</span> <span class="hljs-number">0</span>                 <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;是否删除&#x27;</span>,<br>    <span class="hljs-keyword">constraint</span> uni_userAccount<br>        <span class="hljs-keyword">unique</span> (userAccount)<br>) comment <span class="hljs-string">&#x27;用户&#x27;</span>;<br><br><span class="hljs-comment">-- 接口信息表</span><br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> if <span class="hljs-keyword">not</span> <span class="hljs-keyword">exists</span>  `interface_info`<br>(<br>    `id` <span class="hljs-type">bigint</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> auto_increment comment <span class="hljs-string">&#x27;主键&#x27;</span> <span class="hljs-keyword">primary</span> key,<br>    `name` <span class="hljs-type">varchar</span>(<span class="hljs-number">256</span>) <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;用户名&#x27;</span>,<br>    `description` <span class="hljs-type">varchar</span>(<span class="hljs-number">256</span>) <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;描述&#x27;</span>,<br>    `url` <span class="hljs-type">varchar</span>(<span class="hljs-number">512</span>) <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;接口地址&#x27;</span>,<br>    `requestHeader` text <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;请求头&#x27;</span>,<br>    `responseHeader` text <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;响应头&#x27;</span>,<br>    `userId` <span class="hljs-type">varchar</span>(<span class="hljs-number">256</span>) <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;创建人&#x27;</span>,<br>    `status` <span class="hljs-type">int</span> <span class="hljs-keyword">default</span> <span class="hljs-number">0</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;接口状态（0 - 关闭， 1 - 开启））&#x27;</span>,<br>    `<span class="hljs-keyword">method</span>` <span class="hljs-type">varchar</span>(<span class="hljs-number">256</span>) <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;请求类型&#x27;</span>,<br>    `createTime` datetime <span class="hljs-keyword">default</span> <span class="hljs-operator">*</span><span class="hljs-built_in">CURRENT_TIMESTAMP</span><span class="hljs-operator">*</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;创建时间&#x27;</span>,<br>    `updateTime` datetime <span class="hljs-keyword">default</span> <span class="hljs-operator">*</span><span class="hljs-built_in">CURRENT_TIMESTAMP</span><span class="hljs-operator">*</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> <span class="hljs-keyword">on</span> <span class="hljs-keyword">update</span> <span class="hljs-operator">*</span><span class="hljs-built_in">CURRENT_TIMESTAMP</span><span class="hljs-operator">*</span> comment <span class="hljs-string">&#x27;更新时间&#x27;</span>,<br>    `isDelete` tinyint <span class="hljs-keyword">default</span> <span class="hljs-number">0</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;是否删除(0-未删, 1-已删)&#x27;</span><br>) comment <span class="hljs-string">&#x27;接口信息表&#x27;</span>;<br><br><span class="hljs-comment">-- 接口用户关联表</span><br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> api_backend.user_interface_info<br>(<br>    id              <span class="hljs-type">bigint</span> auto_increment comment <span class="hljs-string">&#x27;主键&#x27;</span><br>        <span class="hljs-keyword">primary</span> key,<br>    userId          <span class="hljs-type">bigint</span>                             <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;调用用户 id&#x27;</span>,<br>    interfaceInfoId <span class="hljs-type">bigint</span>                             <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;接口 id&#x27;</span>,<br>    totalNum        <span class="hljs-type">int</span>      <span class="hljs-keyword">default</span> <span class="hljs-number">0</span>                 <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;总调用次数&#x27;</span>,<br>    leftNum         <span class="hljs-type">int</span>      <span class="hljs-keyword">default</span> <span class="hljs-number">0</span>                 <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;剩余调用次数&#x27;</span>,<br>    status          <span class="hljs-type">int</span>      <span class="hljs-keyword">default</span> <span class="hljs-number">0</span>                 <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;0-正常，1-禁用&#x27;</span>,<br>    createTime      datetime <span class="hljs-keyword">default</span> <span class="hljs-operator">*</span><span class="hljs-built_in">CURRENT_TIMESTAMP</span><span class="hljs-operator">*</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;创建时间&#x27;</span>,<br>    updateTime      datetime <span class="hljs-keyword">default</span> <span class="hljs-operator">*</span><span class="hljs-built_in">CURRENT_TIMESTAMP</span><span class="hljs-operator">*</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> <span class="hljs-keyword">on</span> <span class="hljs-keyword">update</span> <span class="hljs-operator">*</span><span class="hljs-built_in">CURRENT_TIMESTAMP</span><span class="hljs-operator">*</span> comment <span class="hljs-string">&#x27;更新时间&#x27;</span>,<br>    isDelete        tinyint  <span class="hljs-keyword">default</span> <span class="hljs-number">0</span>                 <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;是否删除(0-未删, 1-已删)&#x27;</span><br>)<br>    comment <span class="hljs-string">&#x27;用户调用接口关系&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+
+<p><img src="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230914091950696.png" srcset="/img/loading.gif" lazyload alt="image-20230914091950696"></p>
+<h2 id="模块设计"><a href="#模块设计" class="headerlink" title="模块设计:"></a>模块设计:</h2><p><img src="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230914091605034.png" srcset="/img/loading.gif" lazyload alt="image-20230914091605034"></p>
+<h2 id="系统架构："><a href="#系统架构：" class="headerlink" title="系统架构："></a>系统架构：</h2><p><img src="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230914095725115.png" srcset="/img/loading.gif" lazyload alt="image-20230914095725115"></p>
+<h2 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h2><p>阳api开放平台</p>
+<p>前端流程：</p>
+<ol>
+<li><p>获取openapi，json文档，使用openapi插件自动生成前端代码.</p>
+</li>
+<li><p>修改requesterrorConfig.ts为requestConfig.ts,修改里面的内容如下：</p>
+<p><img src="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230804190344529.png" srcset="/img/loading.gif" lazyload alt="image-20230804190344529"></p>
+<p><img src="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230804190605667.png" srcset="/img/loading.gif" lazyload alt="image-20230804190605667"></p>
+</li>
+<li><p>修改登录页面，找到USER的Login目录的Index.tsx找到里面的login方法</p>
+</li>
+<li><p>app.tsx中的getInitState获取全局信息</p>
+</li>
+<li><p>在typings.d.ts中的最下面添加如下接口</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 全局状态类型</span><br><span class="hljs-comment"> * 存全局变量的地方</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">interface</span> <span class="hljs-title class_">InitialState</span> &#123;<br>  <span class="hljs-attr">loginUser</span>: <span class="hljs-variable constant_">API</span>.<span class="hljs-property">UserVO</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>修改app.tsx的如下位置</p>
+<p><img src="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230804194122778.png" srcset="/img/loading.gif" lazyload alt="image-20230804194122778"></p>
+<p><img src="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230804195142417.png" srcset="/img/loading.gif" lazyload alt="image-20230804195142417"></p>
+</li>
+<li><p>根据提示删除没有用到的导入</p>
+</li>
+<li><p>进入User Login index目录下继续修改如下：</p>
+<p><img src="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230804232907284.png" srcset="/img/loading.gif" lazyload alt="image-20230804232907284">删除掉没用的代码</p>
+</li>
+<li><p>回到requestConfig修改如下代码：</p>
+<p><img src="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230804233437537.png" srcset="/img/loading.gif" lazyload alt="image-20230804233437537"></p>
+</li>
+<li><p>解决用户权限问题，进入access.ts文件修改如下</p>
+</li>
+</ol>
+<p><img src="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230804233634344.png" srcset="/img/loading.gif" lazyload alt="image-20230804233634344"></p>
+<ol start="11">
+<li><p>进入TableList的index.tsx找到tablelist方法，点击columns换成自己想展示的列表列名</p>
+</li>
+<li><p>找到request，更改展示列表数据的方法</p>
+<p><img src="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230805004753476.png" srcset="/img/loading.gif" lazyload alt="image-20230805004753476"></p>
+</li>
+</ol>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs ts">request=&#123;<span class="hljs-keyword">async</span> (params, <span class="hljs-attr">sort</span>: <span class="hljs-title class_">Record</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-title class_">SortOrder</span>&gt;, <span class="hljs-attr">filter</span>: <span class="hljs-title class_">Record</span>&lt;<span class="hljs-built_in">string</span>, (<span class="hljs-built_in">string</span> | <span class="hljs-title class_">React</span>.<span class="hljs-property">ReactText</span>)[] | <span class="hljs-literal">null</span>&gt;) =&gt; &#123;<br>          <span class="hljs-keyword">const</span> res =<span class="hljs-keyword">await</span> <span class="hljs-title function_">listInterfaceInfoByPageUsingGET</span>(&#123;<br>            ...params<br>          &#125;)<br>          <span class="hljs-keyword">if</span> (res?.<span class="hljs-property">data</span>) &#123;<br>            <span class="hljs-keyword">return</span> &#123;<br>              <span class="hljs-attr">data</span>: res?.<span class="hljs-property">data</span>.<span class="hljs-property">records</span> || [],<br>              <span class="hljs-attr">success</span>: <span class="hljs-literal">true</span>,<br>              <span class="hljs-attr">total</span>: res.<span class="hljs-property">total</span>,<br>            &#125;<br>        &#125;<br>        &#125;&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="13">
+<li><p>修改TableList目录为interfaceInfo，修改里面的内容：</p>
+<p><img src="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230805092834963.png" srcset="/img/loading.gif" lazyload alt="image-20230805092834963"></p>
+</li>
+</ol>
+<h2 id="bug"><a href="#bug" class="headerlink" title="bug"></a>bug</h2><ol>
+<li><p>前端修改信息有一个问题，修改信息时，没有传递id列，导致修改后id列传给后端的id为null，后端因为id不能为空所以系统报错。</p>
+<p>解决方法应该修改前端，让前端修改时带上id。</p>
+</li>
+<li><p>修改用户主页页脚随数据的减少而改动</p>
+</li>
+</ol>
+<h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><ul>
+<li>新建用户中心页面，比如签名可能泄露，用户申请更换accessKey</li>
+</ul>
+<h2 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h2><p>后端步骤:</p>
+<ol>
+<li>API签名认证</li>
+<li>客户端SDK开发（stater）</li>
+</ol>
+<h2 id="api签名认证"><a href="#api签名认证" class="headerlink" title="api签名认证"></a>api签名认证</h2><p>本质：</p>
+<ol>
+<li>签发签名</li>
+<li>使用签名（效验签名）</li>
+</ol>
+<p>需要的原因：</p>
+<ol>
+<li>保证安全性，不能随意一个人调用</li>
+</ol>
+<p>密码一定不要在服务器传输</p>
+<p>加密方法：md5（不可解密）</p>
+<h2 id="starter创建流程"><a href="#starter创建流程" class="headerlink" title="starter创建流程"></a>starter创建流程</h2><ul>
+<li>建立一个Maven空项目</li>
+<li>删除掉不必要的目录</li>
+<li>引入必要的依赖(如果创建时pom文件中存在&lt; build &gt;一定要删除)</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span>?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">project</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span><br><span class="hljs-tag">         <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">modelVersion</span>&gt;</span>4.0.0<span class="hljs-tag">&lt;/<span class="hljs-name">modelVersion</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">parent</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.7.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">relativePath</span>/&gt;</span> <span class="hljs-comment">&lt;!-- lookup parent from repository --&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">parent</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.yangapi<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>yangapi-sdk<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>0.0.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>com-yangapi-sdk<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">description</span>&gt;</span>com.yangapi-sdk<span class="hljs-tag">&lt;/<span class="hljs-name">description</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">properties</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">java.version</span>&gt;</span>1.8<span class="hljs-tag">&lt;/<span class="hljs-name">java.version</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">properties</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br> 						<span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br> 						<span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-autoconfigure<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>				<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>      	<span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br> 					<span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br> 					<span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-configuration-					processor<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br> 					<span class="hljs-tag">&lt;<span class="hljs-name">optional</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">optional</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>cn.hutool<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>hutool-all<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>5.8.16<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.projectlombok<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>lombok<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">optional</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">optional</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">project</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>创建配置类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@ConfigurationProperties(&quot;yangapi.client&quot;)</span><br><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@ComponentScan</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">YangApiClientConfig</span> &#123;<br>    <span class="hljs-keyword">private</span> String accessKey;<br>    <span class="hljs-keyword">private</span> String secretKey;<br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> YangApiClient <span class="hljs-title function_">yangApiClient</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">YangApiClient</span>(accessKey,secretKey);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>创建客户端（用于接收ak，sk校验，并且调用模拟接口）</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">YangApiClient</span> &#123;<br>    <span class="hljs-comment">//调用方</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> String accessKey;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> String secretKey;<br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">YangApiClient</span><span class="hljs-params">(String accessKey, String secretKey)</span> &#123;<br>        <span class="hljs-built_in">this</span>.accessKey = accessKey;<br>        <span class="hljs-built_in">this</span>.secretKey = secretKey;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getRandomAvatar</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">avatarUrl</span> <span class="hljs-operator">=</span> HttpUtil.get(<span class="hljs-string">&quot;http://localhost:8100/api/yangapi/random-avatar&quot;</span>);<br>        <span class="hljs-keyword">return</span> avatarUrl;<br>    &#125;;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 加密sk(隐藏sk)</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> body</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Map&lt;String,String&gt; <span class="hljs-title function_">setHeader</span><span class="hljs-params">(String body)</span>&#123;<br>        Map&lt;String,String&gt; hashMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        hashMap.put(<span class="hljs-string">&quot;accessKey&quot;</span>,accessKey);<br>        <span class="hljs-comment">//随机数</span><br>        hashMap.put(<span class="hljs-string">&quot;body&quot;</span>,body);<br>        <span class="hljs-comment">//时间戳</span><br>        hashMap.put(<span class="hljs-string">&quot;nonce&quot;</span>, RandomUtil.randomNumbers(<span class="hljs-number">5</span>));<br>        <span class="hljs-comment">//签名</span><br>        hashMap.put(<span class="hljs-string">&quot;timestamp&quot;</span>, String.valueOf(System.currentTimeMillis() / <span class="hljs-number">1000</span>));<br>        hashMap.put(<span class="hljs-string">&quot;sign&quot;</span>, SignUtils.getSign(body,secretKey));<br>        <span class="hljs-keyword">return</span> hashMap;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getNewsRankingList</span><span class="hljs-params">( Total total)</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">json</span> <span class="hljs-operator">=</span> JSONUtil.toJsonStr(total);<br>        <span class="hljs-type">String</span> <span class="hljs-variable">body</span> <span class="hljs-operator">=</span> HttpRequest.post(<span class="hljs-string">&quot;http://localhost:8100/api/yangapi/top-news&quot;</span>)<br>                .addHeaders(setHeader(json))<br>                .body(json)<br>                .execute().body();<br>        <span class="hljs-keyword">return</span> body;<br>    &#125;;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>在resources目录下创建META-INF目录</li>
+<li>在META-INF目录下创建spring.factories</li>
+<li>在spring.factories中加入如下配置代码</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs xml">#spring boot stater<br>org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.yangapi.sdk.YangApiClientConfig<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>在pom文件中命名starter为API-SDK(随意命名)</li>
+<li>使用maven命令install或者package打包项目</li>
+<li>可以发送到maven官方仓库，自用的话先找到该jar包，然后·直接在其他项目引入即可。</li>
+</ul>
+<h2 id="gateway中使用装饰器模式"><a href="#gateway中使用装饰器模式" class="headerlink" title="gateway中使用装饰器模式"></a>gateway中使用装饰器模式</h2><p>利用reponse装饰者，增强response，使他可以输出相应日志和相关的业务操作比如调用接口次数—+1</p>
+<p>解决方案：利用 response 装饰者，增强原有 response 的处理能力</p>
+<p>参考博客：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_19636353/article/details/126759522">https://blog.csdn.net/qq_19636353/article/details/126759522</a></p>
+<p>其他参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zx156955/article/details/121670681">https://blog.csdn.net/zx156955/article/details/121670681</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43933728/article/details/121359727?spm=1001.2014.3001.5501">https://blog.csdn.net/weixin_43933728/article/details/121359727?spm=1001.2014.3001.5501</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_39529562/article/details/108911983">https://blog.csdn.net/qq_39529562/article/details/108911983</a></p>
+<h2 id="api网关-gateway"><a href="#api网关-gateway" class="headerlink" title="api网关(gateway)"></a>api网关(gateway)</h2><p><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-gateway/docs/current/reference/html/#gateway-combined-global-filter-and-gatewayfilter-ordering">编写全局过滤器编写统一业务代码</a></p>
+<ul>
+<li><p>增删改查</p>
+</li>
+<li><p>统计调用次数，接口调用次数+1</p>
+</li>
+</ul>
+<p>核心概念：</p>
+<ul>
+<li><p>条件，简称断言</p>
+</li>
+<li><p>路由：（<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-gateway/docs/current/reference/html/#gateway-request-predicates-factories">根据什么条件，转发到指定路由</a>）</p>
+</li>
+<li><p>路由匹配：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">predicates:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-string">Path=/red/&#123;segment&#125;,/blue/&#123;segment&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<ol>
+<li><p><code>/red/&#123;segment&#125;</code>：这个规则匹配以<code>/red/</code>开头的路径，并且<code>&#123;segment&#125;</code>是一个占位符，表示路径中的一个变量。例如，<code>/red/apple</code>和<code>/red/orange</code>都会匹配到这个规则。</p>
+</li>
+<li><p><code>/blue/&#123;segment&#125;</code>：这个规则匹配以<code>/blue/</code>开头的路径，并且<code>&#123;segment&#125;</code>是一个占位符，表示路径中的一个变量。例如，<code>/blue/apple</code>和<code>/blue/orange</code>都会匹配到这个规则。</p>
+</li>
+<li><pre><code class="java">Map&lt;String, String&gt; uriVariables = ServerWebExchangeUtils.getUriTemplateVariables(exchange);
+String segment = uriVariables.get(&quot;segment&quot;);
+
+//这段代码是用于从ServerWebExchange对象中获取URI模板变量的值。
+
+//首先，ServerWebExchange是Spring WebFlux中的一个核心对象，它代表一个HTTP请求和响应的交换。getUriTemplateVariables()是ServerWebExchangeUtils工具类中的一个静态方法，用于从ServerWebExchange对象中提取URI模板变量的值。
+
+//在给定的代码中，uriVariables是一个Map&lt;String, String&gt;类型的变量，用于存储URI模板变量的名称和对应的值。通过调用ServerWebExchangeUtils.getUriTemplateVariables(exchange)，可以从ServerWebExchange对象中提取URI模板变量，并将其存储在uriVariables中。
+
+//接下来，通过调用uriVariables.get(&quot;segment&quot;)，可以获取名为&quot;segment&quot;的URI模板变量的值，并将其赋值给segment变量。这样，我们就可以在后续的代码中使用segment变量来处理这个URI模板变量的值。  
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs xml"><br>- 过滤器（ 添加请求头标识）<br><br>  <br><br>------<br><br>### 令牌桶，漏桶，计数器算法<br><br>#### **概述：**<br><br>（1）计数器：<br><br>在一段时间间隔内（时间窗/时间区间），处理请求的最大数量固定，超过部分不做处理。<br><br>（2）漏桶：<br><br>漏桶大小固定，处理速度固定，但请求进入速度不固定（在突发情况请求过多时，会丢弃过多的请求）。<br><br>（3）令牌桶：<br><br>令牌桶的大小固定，令牌的产生速度固定，但是消耗令牌（即请求）速度不固定（可以应对一些某些时间请求过多的情况）；每个请求都会从令牌桶中取出令牌，如果没有令牌则丢弃该次请求。<br><br>[三种算法详细讲解](https://blog.csdn.net/crazymakercircle/article/details/130035504?ydreferer=aHR0cHM6Ly9jbi5iaW5nLmNvbS8%3D)<br><br><br><br><br><br>### 降级可运行默认配置<br><br>#### 非反应式配置<br><br>**前提：**<br><br>- `org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j`- 非反应性应用<br>- `org.springframework.cloud:spring-cloud-starter-circuitbreaker-reactor-resilience4j`- 反应式应用<br><br>*引入非反应式：*<br><br>```xml<br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-gateway<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>		<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-comment">&lt;!--	断路器过滤器依赖,降级	--&gt;</span><br>		<span class="hljs-comment">&lt;!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-circuitbreaker-reactor-resilience4j --&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-circuitbreaker-reactor-resilience4j<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.1.5<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>		<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ol>
+</li>
+</ul>
+<p><strong>yml配置：</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">server:</span><br>  <span class="hljs-attr">port:</span> <span class="hljs-number">8100</span><br><span class="hljs-attr">logging:</span><br>  <span class="hljs-attr">level:</span><br>    <span class="hljs-attr">org.springframework.cloud.gateway:</span> <span class="hljs-string">trace</span>   <span class="hljs-comment">#日志级别 trace为最低</span><br>    <span class="hljs-attr">reactor.netty.http.client:</span> <span class="hljs-string">debug</span><br><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">gateway:</span><br>      <span class="hljs-attr">default-filters:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-string">AddRequestHeader=lcy,yangapi</span>   <span class="hljs-comment">#默认过滤器，添加请求头,所有定义的路由都会添加这个请求头</span><br>      <span class="hljs-attr">routes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">id:</span> <span class="hljs-string">path_route</span><br>        <span class="hljs-attr">uri:</span> <span class="hljs-string">http://localhost:8090</span>  <span class="hljs-comment">#重定向的路由地址,自动拼接/api/**</span><br>        <span class="hljs-attr">predicates:</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-string">Path=/api/**</span><br>        <span class="hljs-attr">filters:</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-string">AddRequestHeader=gateway-env,</span> <span class="hljs-string">springcloud-gateway</span>  <span class="hljs-comment">#添加请求头,key:gateway-env,values:springcloud-gateway</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">CircuitBreaker</span><br>            <span class="hljs-attr">args:</span><br>              <span class="hljs-attr">name:</span> <span class="hljs-string">myCircuitBreaker</span><br>              <span class="hljs-attr">fallbackUri:</span> <span class="hljs-string">forward:/api/yangapi/fallback</span>   <span class="hljs-comment"># 如果访问不通，则降级访问其他uri</span><br>              <span class="hljs-attr">timeout:</span> <span class="hljs-number">2000</span>  <span class="hljs-comment">#超时时间2000  响应超过2秒降级访问fallback页面</span><br><br><span class="hljs-attr">resilience4j:</span><br>  <span class="hljs-attr">circuitbreaker:</span><br>    <span class="hljs-attr">configs:</span><br>      <span class="hljs-attr">default:</span> <span class="hljs-comment">#默认</span><br>        <span class="hljs-attr">ringBufferSizeInClosedState:</span> <span class="hljs-number">100</span><br>        <span class="hljs-attr">ringBufferSizeInHalfOpenState:</span> <span class="hljs-number">10</span><br>        <span class="hljs-attr">failureRateThreshold:</span> <span class="hljs-number">50</span><br>        <span class="hljs-attr">waitDurationInOpenState:</span> <span class="hljs-number">5000</span><br>        <span class="hljs-attr">slidingWindowSize:</span> <span class="hljs-number">10</span><br>        <span class="hljs-attr">permittedNumberOfCallsInHalfOpenState:</span> <span class="hljs-number">3</span><br>        <span class="hljs-attr">registerHealthIndicator:</span> <span class="hljs-literal">true</span><br>      <span class="hljs-attr">myCircuitBreaker:</span> <span class="hljs-comment">#实例</span><br>        <span class="hljs-attr">ringBufferSizeInClosedState:</span> <span class="hljs-number">50</span><br>        <span class="hljs-attr">ringBufferSizeInHalfOpenState:</span> <span class="hljs-number">5</span><br>        <span class="hljs-attr">failureRateThreshold:</span> <span class="hljs-number">60</span><br>        <span class="hljs-attr">waitDurationInOpenState:</span> <span class="hljs-number">8000</span><br>        <span class="hljs-attr">slidingWindowSize:</span> <span class="hljs-number">15</span><br>        <span class="hljs-attr">permittedNumberOfCallsInHalfOpenState:</span> <span class="hljs-number">2</span><br>        <span class="hljs-attr">registerHealthIndicator:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="报错"><a href="#报错" class="headerlink" title="报错"></a>报错</h3><p>接口提供方报错：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">java.lang.IllegalArgumentException: Invalid character found in method name. HTTP method names must be tokens<br></code></pre></td></tr></table></figure>
+
+<p><em><strong>解决：</strong></em></p>
+<ol>
+<li>将访问路径从<a href="https://localhost:8080改为http://localhost:8080">https://localhost:8080改为http://localhost:8080</a></li>
+<li>Tomcat的header缓冲区大小不够</li>
+<li>ssl证书到期了</li>
+<li>原因3: 修改端口号</li>
+</ol>
+<hr>
+<h2 id="Rpc"><a href="#Rpc" class="headerlink" title="Rpc"></a>Rpc</h2><p>实现概念图：</p>
+<p><img src="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230811103226241.png" srcset="/img/loading.gif" lazyload alt="image-20230811103226241"></p>
+<h3 id="Dubbo"><a href="#Dubbo" class="headerlink" title="Dubbo"></a>Dubbo</h3><p><a target="_blank" rel="noopener" href="https://cn.dubbo.apache.org/zh-cn/overview/mannual/java-sdk/reference-manual/registry/nacos/">nacos注册中心的配置</a></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.dubbo<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>dubbo<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.0.9<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.alibaba.nacos<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>nacos-client<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.1.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>yml配置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># Dubbo配置</span><br><span class="hljs-comment">#生产者端</span><br><span class="hljs-attr">dubbo:</span><br>  <span class="hljs-attr">cache:</span> <span class="hljs-literal">false</span><br>  <span class="hljs-comment"># 消费者相关配置</span><br><span class="hljs-comment">#  consumer:</span><br><span class="hljs-comment">#    # 结果缓存(LRU算法)</span><br><span class="hljs-comment">#    # 会有数据不一致问题 建议在注解局部开启</span><br><span class="hljs-comment">#    cache: false</span><br><span class="hljs-comment">#    # 支持校验注解</span><br><span class="hljs-comment">#    validation: true</span><br><span class="hljs-comment">#    # 超时时间</span><br><span class="hljs-comment">#    timeout: 3000</span><br>    <span class="hljs-comment"># 初始化检查</span><br><span class="hljs-comment">#    check: false</span><br>  <span class="hljs-attr">application:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">yangapi-backend</span><br>  <span class="hljs-attr">protocol:</span><br>    <span class="hljs-comment"># dubbo 协议端口(-1表示自增端口,从20880开始)</span><br>    <span class="hljs-attr">port:</span> <span class="hljs-number">20880</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">dubbo</span><br>  <span class="hljs-attr">registry:</span><br>    <span class="hljs-attr">id:</span> <span class="hljs-string">nacos-registry</span><br>    <span class="hljs-attr">address:</span> <span class="hljs-string">nacos://127.0.0.1:8848</span><br><br><span class="hljs-comment">#消费者端</span><br><span class="hljs-attr">dubbo:</span><br>  <span class="hljs-attr">application:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">yangapi-backend</span><br>  <span class="hljs-attr">protocol:</span><br>    <span class="hljs-comment"># dubbo 协议端口(-1表示自增端口,从20880开始)</span><br>    <span class="hljs-attr">port:</span> <span class="hljs-number">20881</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">dubbo</span><br>  <span class="hljs-attr">registry:</span><br>    <span class="hljs-attr">id:</span> <span class="hljs-string">nacos-registry</span><br>    <span class="hljs-attr">address:</span> <span class="hljs-string">nacos://127.0.0.1:8848</span><br>    <br></code></pre></td></tr></table></figure>
+
+<h3 id="Nacos"><a href="#Nacos" class="headerlink" title="Nacos"></a>Nacos</h3><p><em><strong>配置：</strong></em></p>
+<ol>
+<li><strong>修改<code>conf/</code>路径下的配置文件<code>application.properties</code> 将下图中的数据库配置注释放开，同时修改数据库账户和密码； 此中的数据库<code>nacos</code>与步骤3中建立的数据库名保持一致；</strong></li>
+</ol>
+<p><img src="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230811125003825.png" srcset="/img/loading.gif" lazyload alt="image-20230811125003825"></p>
+<ol start="2">
+<li><strong>本地创建MYSQL数据库nacos，导入解压文件夹中的mysql-schema.sql脚本</strong></li>
+</ol>
+<p><em><strong>启动：</strong></em></p>
+<ol>
+<li><p>单机：<strong>startup.cmd -m standalone</strong></p>
+</li>
+<li><p>集群默认双击：<strong>startup.cmd</strong></p>
+</li>
+<li><p>修改config目录的application.properties，修改如下：</p>
+<p><img src="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230811125515389.png" srcset="/img/loading.gif" lazyload alt="image-20230811125515389"></p>
+</li>
+</ol>
+<p><em><strong>进入管理页面：</strong></em></p>
+<p> <a target="_blank" rel="noopener" href="http://192.168.150.105:8848/nacos/index.html">http://192.168.150.105:8848/nacos/index.html</a></p>
+<p>账号密码：nacos</p>
+<h3 id="示例配置："><a href="#示例配置：" class="headerlink" title="示例配置："></a>示例配置：</h3><ol>
+<li>服务调用类必须在同一包下，建议是抽象出一个公共项目（放接口、实体类等）</li>
+<li>设置注解（比如启动类的 EnableDubbo、接口实现类和 Bean 引用的注解）</li>
+<li>添加配置</li>
+<li>服务调用项目和提供者项目尽量引入相同的依赖和配置</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;!-- https:<span class="hljs-comment">//mvnrepository.com/artifact/org.apache.dubbo/dubbo --&gt;</span><br> &lt;dependency&gt;<br>     &lt;groupId&gt;org.apache.dubbo&lt;/groupId&gt;<br>     &lt;artifactId&gt;dubbo&lt;/artifactId&gt;<br>     &lt;version&gt;<span class="hljs-number">3.1</span><span class="hljs-number">.3</span>&lt;/version&gt;<br> &lt;/dependency&gt;<br> &lt;dependency&gt;<br>     &lt;groupId&gt;com.alibaba.nacos&lt;/groupId&gt;<br>     &lt;artifactId&gt;nacos-client&lt;/artifactId&gt;<br>     &lt;version&gt;<span class="hljs-number">2.1</span><span class="hljs-number">.0</span>&lt;/version&gt;<br> &lt;/dependency&gt;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="bug-1"><a href="#bug-1" class="headerlink" title="bug"></a>bug</h2><ol>
+<li><p>前端修改信息有一个问题，修改信息时，没有传递id列，导致修改后id列传给后端的id为null，后端因为id不能为空所以系统报错。</p>
+<p>解决方法应该修改前端，让前端修改时带上id。</p>
+</li>
+<li><p>接口返回报错：</p>
+</li>
+<li><pre><code class="hljs">2023-08-10 19:56:43.091  WARN 21476 --- [nio-8090-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method &#39;POST&#39; not supported]
+2023-08-10 19:56:43.091  WARN 21476 --- [nio-8090-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method &#39;POST&#39; not supported]
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><br>   解决方法：层层打断点排查，最后确定是网关层面问题，请求的接口是获取新闻列表，到网关之后处理改为了我写的降级处理的错误页面，导致请求为post，倒是fallback为get请求，最后删掉降级处理的配置url，成功解决问题<br><br><span class="hljs-number">4</span>. ```<br>   request start，id: ffa537ac-<span class="hljs-number">5</span>bc2-<span class="hljs-number">43</span>b7-<span class="hljs-number">9</span>ad8-<span class="hljs-number">886218</span>cb8bce, path: /api/analysis/<span class="hljs-attribute">top</span>/interface/invoke, ip: <span class="hljs-number">0</span>:<span class="hljs-number">0</span>:<span class="hljs-number">0</span>:<span class="hljs-number">0</span>:<span class="hljs-number">0</span>:<span class="hljs-number">0</span>:<span class="hljs-number">0</span>:<span class="hljs-number">1</span>, params: []<br>   <span class="hljs-number">2023</span>-<span class="hljs-number">08</span>-<span class="hljs-number">12</span> <span class="hljs-number">01</span>:<span class="hljs-number">05</span>:<span class="hljs-number">25.853</span> ERROR <span class="hljs-number">25032</span> --- <span class="hljs-selector-attr">[nio-7529-exec-3]</span> c<span class="hljs-selector-class">.y</span><span class="hljs-selector-class">.p</span><span class="hljs-selector-class">.exception</span><span class="hljs-selector-class">.GlobalExceptionHandler</span>   : runtimeException<br>   <br>   org<span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.ibatis</span><span class="hljs-selector-class">.binding</span><span class="hljs-selector-class">.BindingException</span>: Invalid bound statement (not found): com<span class="hljs-selector-class">.yangapi</span><span class="hljs-selector-class">.project</span><span class="hljs-selector-class">.mapper</span><span class="hljs-selector-class">.UserInterfaceInfoMapper</span>.listTopInvokeInterfaceInfo<br></code></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E9%A1%B9%E7%9B%AE/" class="print-no-link">#项目</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Yang-Api</div>
+      <div>http://zhouzhoubao.xyz/2023/09/14/Yang-Api/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>李成阳</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年9月14日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年9月14日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/09/14/linux%E9%85%8D%E7%BD%AEElasticsearch%E7%8E%AF%E5%A2%83%EF%BC%88%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%89%88%EF%BC%89/" title="linux配置Elasticsearch环境（基础学习版）">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">linux配置Elasticsearch环境（基础学习版）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/09/14/%E7%BC%93%E5%AD%98/" title="缓存">
+                        <span class="hidden-mobile">缓存</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="lv-container" data-id="city" data-uid="MTAyMC81ODc2MC8zNTIyMg==">
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <!-- 网易云音乐播放器 --> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"> <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script> <div id="player" class="aplayer aplayer-withlist aplayer-fixed" data-id="5155575627" data-server="netease" data-type="playlist" data-order="random" data-autoplay="true" data-fixed="true" data-listfolded="true" data-theme="#2D8CF0"></div>
+<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

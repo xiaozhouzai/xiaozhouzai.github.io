@@ -1,0 +1,824 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/fluid.png">
+  <link rel="icon" href="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="李成阳">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="AIGC项目数据库表设计：1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859create table aigc.user(    id            bigint auto_increment comment &amp;#x27;i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AIGC智能分析小助手">
+<meta property="og:url" content="http://zhouzhoubao.xyz/2023/09/14/AIGC%E6%99%BA%E8%83%BD%E5%88%86%E6%9E%90%E5%B0%8F%E5%8A%A9%E6%89%8B/index.html">
+<meta property="og:site_name" content="LCY的博客">
+<meta property="og:description" content="AIGC项目数据库表设计：1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859create table aigc.user(    id            bigint auto_increment comment &amp;#x27;i">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230914103633760.png">
+<meta property="og:image" content="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230831084605165.png">
+<meta property="article:published_time" content="2023-09-14T02:29:11.000Z">
+<meta property="article:modified_time" content="2023-09-14T02:41:24.820Z">
+<meta property="article:author" content="李成阳">
+<meta property="article:tag" content="mq">
+<meta property="article:tag" content="项目">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230914103633760.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>AIGC智能分析小助手 - LCY的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zhouzhoubao.xyz","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>周李</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="AIGC智能分析小助手"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        李成阳
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-09-14 10:29" pubdate>
+          2023年9月14日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          13k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          111 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">AIGC智能分析小助手</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年9月14日 上午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="AIGC项目"><a href="#AIGC项目" class="headerlink" title="AIGC项目"></a>AIGC项目</h1><h2 id="数据库表设计："><a href="#数据库表设计：" class="headerlink" title="数据库表设计："></a>数据库表设计：</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> aigc.user<br>(<br>    id            <span class="hljs-type">bigint</span> auto_increment comment <span class="hljs-string">&#x27;id&#x27;</span><br>        <span class="hljs-keyword">primary</span> key,<br>    userName      <span class="hljs-type">varchar</span>(<span class="hljs-number">256</span>)                           <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;用户昵称&#x27;</span>,<br>    userAccount   <span class="hljs-type">varchar</span>(<span class="hljs-number">256</span>)                           <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;账号&#x27;</span>,<br>    userPassword  <span class="hljs-type">varchar</span>(<span class="hljs-number">512</span>)                           <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;密码&#x27;</span>,<br>    userAvatar    <span class="hljs-type">varchar</span>(<span class="hljs-number">1024</span>)                          <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;用户头像&#x27;</span>,<br>    userSignature <span class="hljs-type">varchar</span>(<span class="hljs-number">256</span>)                           <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;座右铭&#x27;</span>,<br>    userPhone     <span class="hljs-type">varchar</span>(<span class="hljs-number">26</span>)                            <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;手机号&#x27;</span>,<br>    tags          <span class="hljs-type">varchar</span>(<span class="hljs-number">1024</span>)                          <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;标签 json 列表&#x27;</span>,<br>    userRole      <span class="hljs-type">varchar</span>(<span class="hljs-number">256</span>) <span class="hljs-keyword">default</span> <span class="hljs-string">&#x27;user&#x27;</span>            <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;用户角色：user/admin/ban&#x27;</span>,<br>    updateTime    datetime     <span class="hljs-keyword">default</span> <span class="hljs-built_in">CURRENT_TIMESTAMP</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> <span class="hljs-keyword">on</span> <span class="hljs-keyword">update</span> <span class="hljs-built_in">CURRENT_TIMESTAMP</span> comment <span class="hljs-string">&#x27;更新时间&#x27;</span>,<br>    isDelete      tinyint      <span class="hljs-keyword">default</span> <span class="hljs-number">0</span>                 <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;是否删除&#x27;</span>,<br>    createTime    datetime     <span class="hljs-keyword">default</span> <span class="hljs-built_in">CURRENT_TIMESTAMP</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;创建时间&#x27;</span><br>)<br>    comment <span class="hljs-string">&#x27;用户&#x27;</span> <span class="hljs-keyword">collate</span> <span class="hljs-operator">=</span> utf8mb4_unicode_ci;<br><br><span class="hljs-keyword">create</span> index idx_userAccount<br>    <span class="hljs-keyword">on</span> aigc.user (userAccount);<br><br><span class="hljs-comment">--</span><br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> aigc.chart<br>(<br>    id         <span class="hljs-type">bigint</span> auto_increment comment <span class="hljs-string">&#x27;id&#x27;</span><br>        <span class="hljs-keyword">primary</span> key,<br>    goal       text                               <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;分析目标&#x27;</span>,<br>    name       <span class="hljs-type">varchar</span>(<span class="hljs-number">128</span>)                       <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;图表名称&#x27;</span>,<br>    chartData  text                               <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;图表数据&#x27;</span>,<br>    chartType  <span class="hljs-type">varchar</span>(<span class="hljs-number">128</span>)                       <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;图表类型&#x27;</span>,<br>    status     tinyint  <span class="hljs-keyword">default</span> <span class="hljs-number">0</span>                 <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;0: wait 1: running 2: succeed 3: failed&#x27;</span>,<br>    optMessage text                               <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;执行过程信息&#x27;</span>,<br>    genChart   text                               <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;生成的图标信息&#x27;</span>,<br>    genResult  text                               <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;生成的分析结论&#x27;</span>,<br>    userId     <span class="hljs-type">bigint</span>                             <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;用户id&#x27;</span>,<br>    createTime datetime <span class="hljs-keyword">default</span> <span class="hljs-built_in">CURRENT_TIMESTAMP</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;创建时间&#x27;</span>,<br>    updateTime datetime <span class="hljs-keyword">default</span> <span class="hljs-built_in">CURRENT_TIMESTAMP</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> <span class="hljs-keyword">on</span> <span class="hljs-keyword">update</span> <span class="hljs-built_in">CURRENT_TIMESTAMP</span> comment <span class="hljs-string">&#x27;更新时间&#x27;</span>,<br>    isDelete   tinyint  <span class="hljs-keyword">default</span> <span class="hljs-number">0</span>                 <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;是否删除&#x27;</span><br>)<br>    comment <span class="hljs-string">&#x27;图表信息表&#x27;</span> <span class="hljs-keyword">collate</span> <span class="hljs-operator">=</span> utf8mb4_unicode_ci;<br><br><span class="hljs-comment">--</span><br><br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> aigc.user_blog<br>(<br>    id              <span class="hljs-type">bigint</span>                             <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;id&#x27;</span><br>        <span class="hljs-keyword">primary</span> key,<br>    userId          <span class="hljs-type">bigint</span>                             <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;用户id&#x27;</span>,<br>    avatar          <span class="hljs-type">varchar</span>(<span class="hljs-number">516</span>)                       <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;文章图标标识&#x27;</span>,<br>    title           <span class="hljs-type">varchar</span>(<span class="hljs-number">126</span>)                       <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;标题&#x27;</span>,<br>    blogDescription <span class="hljs-type">varchar</span>(<span class="hljs-number">1024</span>)                      <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;文章简述&#x27;</span>,<br>    content         text                               <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;内容&#x27;</span>,<br>    createTime      datetime <span class="hljs-keyword">default</span> <span class="hljs-built_in">CURRENT_TIMESTAMP</span> <span class="hljs-keyword">null</span>,<br>    updateTime      datetime <span class="hljs-keyword">default</span> <span class="hljs-built_in">CURRENT_TIMESTAMP</span> <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;更新时间&#x27;</span>,<br>    isDelete        tinyint  <span class="hljs-keyword">default</span> <span class="hljs-number">0</span>                 <span class="hljs-keyword">null</span> comment <span class="hljs-string">&#x27;0:未删除,1:删除&#x27;</span><br>)<br>    comment <span class="hljs-string">&#x27;我的博客&#x27;</span>;<br><br><span class="hljs-comment">-- </span><br></code></pre></td></tr></table></figure>
+
+<h2 id="项目架构图"><a href="#项目架构图" class="headerlink" title="项目架构图"></a>项目架构图</h2><p><img src="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230914103633760.png" srcset="/img/loading.gif" lazyload alt="image-20230914103633760"></p>
+<h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><ul>
+<li>springboot</li>
+<li>rabbitmq</li>
+<li>redis</li>
+<li>redission(限流)</li>
+<li>线程池</li>
+<li>ant design pro</li>
+<li>echarts</li>
+</ul>
+<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>1.安装官方文档初始化</p>
+<p>2.运行</p>
+<p>3.提交代码</p>
+<p>移除多余的配置</p>
+<p>移除国际化报错</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">fatal: detected dubious ownership in repository at &#x27;D:/Front/AIGC_frontend&#x27;<br>&#x27;D:/Front/AIGC_frontend&#x27; is owned by:<br>        &#x27;S-1-5-32-544&#x27;<br>but the current user is:<br>        &#x27;S-1-5-21-2792808732-2295366469-2416382537-1001&#x27;<br>To add an exception for this directory, call:<br>git config --global --add safe.directory D:/Front/AIGC_frontend<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">git config --global --add safe.directory D:/Front/AIGC_frontend<br><br>解决启动报错<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">Error: .eslintrc.js » /front-end/ant-app-v6/node_modules/@umijs/lint/dist/config/eslint/index.js:<br>Environment key &quot;es2022&quot; is unknown<br></code></pre></td></tr></table></figure>
+
+<p>解决：</p>
+<ol>
+<li><p><code>yarn add eslint-config-prettier</code></p>
+</li>
+<li><p><code>yarn add eslint-plugin-unicorn</code></p>
+</li>
+<li><pre><code class="java">//找到以下目录的文件node_modules/@umijs/lint/dist/config/eslint/index.js
+注释掉 // es2022: true
+<figure class="highlight node-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><code class="hljs node-repl"><br>   <br><br>后端初始化<br><br>**Swagger启动报错**<br><br><span class="hljs-meta prompt_">&gt;</span> <span class="language-javascript">解决 :高版本<span class="hljs-title class_">SpringBoot</span>整合<span class="hljs-title class_">Swagger</span> 启动报错<span class="hljs-title class_">Failed</span> to start bean <span class="hljs-string">&#x27;documentationPluginsBootstrapper&#x27;</span> 问题</span><br><span class="hljs-meta prompt_">&gt;</span> <span class="language-javascript">一、控制台报错信息</span><br><span class="hljs-meta prompt_">&gt;</span> <span class="language-javascript">二、两种解决办法</span><br><span class="hljs-meta prompt_">&gt;</span> <span class="language-javascript"><span class="hljs-number">1</span>、配置<span class="hljs-title class_">WebMvcConfigurer</span>.<span class="hljs-property">java</span></span><br><span class="hljs-meta prompt_">&gt;</span> <span class="language-javascript"><span class="hljs-number">2</span>、配置文件添加spring.<span class="hljs-property">mvc</span>.<span class="hljs-property">pathmatch</span>.<span class="hljs-property">matching</span>-strategy=ant_path_matcher</span><br><span class="hljs-meta prompt_">&gt;</span> <span class="language-javascript">三、项目启动</span><br><span class="hljs-meta prompt_">&gt;</span> <span class="language-javascript">四、swagger访问，<span class="hljs-attr">http</span>:<span class="hljs-comment">//localhost:8080/doc.html</span></span><br><br>**解决端口号被占用问题**<br><br>cmd窗口运行: `netsh interface ipv4 show excludedportrange protocol=tcp`<br><br>记得把在路由添加个人中心页面，自己写个人中心页面<br><br><br><br>**调用ai生成option代码无法被前端json,prese转化报错**<br><br>`Expected property name or &#x27;&#125;&#x27; in JSON at position 6`<br><br>`SyntaxError: Expected property name or ‘&#125;‘ in JsoN atposition 1`<br><br><span class="hljs-meta prompt_">&gt;</span> <span class="language-javascript">解决：参考：[<span class="hljs-title class_">SyntaxError</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-property">parse</span>: bad parsing - <span class="hljs-title class_">JavaScript</span> | <span class="hljs-variable constant_">MDN</span> (mozilla.<span class="hljs-property">org</span>)](<span class="hljs-attr">https</span>:<span class="hljs-comment">//developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/JSON_bad_parse)</span></span><br><span class="hljs-meta prompt_">&gt;</span><br><span class="hljs-meta prompt_">&gt;</span> <span class="language-javascript">问题发现：字段被<span class="hljs-string">&#x27; &#x27;</span>单引号括住，无法被解析成<span class="hljs-title class_">Json</span>，需要<span class="hljs-string">&quot; &quot;</span>双引号才行;</span><br><span class="hljs-meta prompt_">&gt;</span><br><span class="hljs-meta prompt_">&gt;</span> <span class="language-javascript">我的解决: 让<span class="hljs-title class_">Ai</span>预设加入限制输出格式，每个字段的属性值用<span class="hljs-string">&quot;&quot;</span>双引号标注</span><br><br><br><br>//优化点<br><br>实现文件上传，秒传，文件一定要校验，后缀名，大小，文件上传大小超过100MB考虑分片<br><br>校验文件的合规性（麻烦），使用阿里腾讯的现成方法<br><br><span class="hljs-meta prompt_">&gt;</span> <span class="language-javascript">数据存储：设计初期，把用户的上传的excel解析成string存在数据库的一个字段中</span><br><span class="hljs-meta prompt_">&gt;</span><br><span class="hljs-meta prompt_">&gt;</span> <span class="language-javascript">问题：</span><br><span class="hljs-meta prompt_">&gt;</span><br><span class="hljs-meta prompt_">&gt;</span> <span class="language-javascript"><span class="hljs-number">1.</span> 后期用户过多，内存消耗过大，影响查询效率</span><br><span class="hljs-meta prompt_">&gt;</span><br><span class="hljs-meta prompt_">&gt;</span> <span class="language-javascript"><span class="hljs-number">2.</span> 如果前端要求查看用户上传数据 查询困难</span><br><span class="hljs-meta prompt_">&gt;</span><br><span class="hljs-meta prompt_">&gt;</span> <span class="language-javascript">解决(**分库分表思想**)：</span><br><span class="hljs-meta prompt_">&gt;</span><br><span class="hljs-meta prompt_">&gt;</span> <span class="language-javascript">- 新建数据库表，将要展示要查询的原始数据单独建一个表，将原始数据的列名设置为新表的字段名，看情况可以存在mangod</span><br><span class="hljs-meta prompt_">&gt;</span><br><span class="hljs-meta prompt_">&gt;</span> <span class="language-javascript">- 把每个图表对应的原始数据字段chartData单独保存一个新的数据表，而不是都存在chartData字段中。</span><br><br><br><br>实现：<br><br>- 在存储chartData字段时，改为，写程序拼接建表语句，然后再向建的新表中插入对应数据<br>- 新表字段对应原始数据的表头<br><br>```sql<br>create table chartData_charId（chart表的id）(<br>	id  bigint primary key <br>	&#x27;日期&#x27; DataTime not null,<br>	#这里看情况，考虑一下，如过long类型过长，前端会出现接受long类型数据精度丢失问题比如：后端：1216464984684654654 =&gt; 前端：1216464984684654000<br>	&#x27;用户数&#x27; varchar(128) not null,<br><br>)<br></code></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ol>
+<ul>
+<li>查询语句：由查询一个字段到查询一个表：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> chartData_charId;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>mybatis最灵活的动态sql</li>
+</ul>
+<p><strong>风险:</strong> sql注入,做一个sql校验</p>
+<p>查询时万一用户输入<code>select * from table where id=1</code> 正常输入<code>1</code></p>
+<p>用户如果输入<code>1,or 1=1</code>  ,<code>select * from table where id=1 ,or 1=1</code></p>
+<p>就会获取全部的数据,有些不能展示的数据被泄露</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>= <span class="hljs-string">&#x27;查询方法名&#x27;</span>, <span class="hljs-attr">paramsType</span>=<span class="hljs-string">&#x27;参数类型&#x27;</span>, <span class="hljs-attr">resultType</span>=<span class="hljs-string">&#x27;返回结果类型&#x27;</span>&gt;</span><br>	$&#123;sql语句&#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>拼接bug</li>
+</ul>
+<blockquote>
+<p>用String[] 拼接是乱序的，拼接sql字段顺序会报错</p>
+<p>后来发现不是这个问题：</p>
+<p>问题所在，从数据库获取字段名没有指定按照建表顺序进行</p>
+<p>加上 <code>ORDER BY ORDINAL_POSITION</code>,按照特定顺序排序</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> COLUMN_NAME <span class="hljs-keyword">FROM</span> INFORMATION_SCHEMA.COLUMNS <span class="hljs-keyword">WHERE</span> TABLE_NAME <span class="hljs-operator">=</span> #&#123;tableName&#125; <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> ORDINAL_POSITION<br></code></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>优点:分开存储互不影响，增加安全性</p>
+</blockquote>
+<p>学习正则表达</p>
+<p><strong>限流</strong></p>
+<p>收费，消耗资源的功能一定要做限流</p>
+<p>控制成本 -&gt;限制用户调用次数</p>
+<p>用户在短时间内疯狂调用，导致服务器资源占满 –&gt;做限流</p>
+<p>限流：用户在一秒内疯狂调用 &#x3D;&#x3D;&#x3D;》限制用户一秒只能调用一次（看个人）</p>
+<p>用户在一分钟内调用60次，判断用户是恶意调用，加入黑名单</p>
+<p>1）本地限流，单机限流，</p>
+<p>每个服务器都设置一个限流</p>
+<p><strong>线程池</strong></p>
+<p><strong>Ai调用异步代码：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 这是静态的图表，如果你想拓展，你可以再让ai生成函数function,返回类型再加一个字段,把生成的函数代码再设置到function中</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> file</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> genChartByAiRequest</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> request</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@PostMapping(&quot;/gen&quot;)</span><br>    <span class="hljs-keyword">public</span> BaseResponse&lt;AiResponse&gt; <span class="hljs-title function_">genChartByAi</span><span class="hljs-params">(<span class="hljs-meta">@RequestPart(&quot;file&quot;)</span> MultipartFile file,</span><br><span class="hljs-params">                                             GenChartByAiRequest genChartByAiRequest, HttpServletRequest request)</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">name</span> <span class="hljs-operator">=</span> genChartByAiRequest.getName();<br>        <span class="hljs-type">String</span> <span class="hljs-variable">goal</span> <span class="hljs-operator">=</span> genChartByAiRequest.getGoal();<br>        <span class="hljs-type">String</span> <span class="hljs-variable">chartType</span> <span class="hljs-operator">=</span> genChartByAiRequest.getChartType();<br>        <span class="hljs-type">String</span> <span class="hljs-variable">data</span> <span class="hljs-operator">=</span> ExcelUtils.excelToCsv(file);<br>        <span class="hljs-comment">//校验</span><br>        ThrowUtils.throwIf(StringUtils.isBlank(name) &amp;&amp; name.length() &gt; <span class="hljs-number">100</span>, ErrorCode.NOT_FOUND_ERROR, <span class="hljs-string">&quot;图标名为空&quot;</span>);<br>        ThrowUtils.throwIf(StringUtils.isBlank(goal) &amp;&amp; goal.length() &gt; <span class="hljs-number">1024</span>, ErrorCode.NOT_FOUND_ERROR, <span class="hljs-string">&quot;分析目标为空&quot;</span>);<br>        ThrowUtils.throwIf(StringUtils.isBlank(chartType), ErrorCode.NOT_FOUND_ERROR, <span class="hljs-string">&quot;图表类型为空&quot;</span>);<br>        <span class="hljs-comment">//校验文件</span><br>        <span class="hljs-type">long</span> <span class="hljs-variable">size</span> <span class="hljs-operator">=</span> file.getSize();<br>        <span class="hljs-comment">//定义一个预设最大限度10兆,</span><br>        ThrowUtils.throwIf(size &gt; FILE_MAX_SIZE,ErrorCode.PARAMS_ERROR,<span class="hljs-string">&quot;文件过大，上传失败&quot;</span>);<br>        <span class="hljs-comment">//校验文件名后缀</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">originalFilename</span> <span class="hljs-operator">=</span> file.getOriginalFilename();<br>        <span class="hljs-type">String</span> <span class="hljs-variable">suffix</span> <span class="hljs-operator">=</span> FileUtil.getSuffix(originalFilename);<br>        <span class="hljs-keyword">if</span> (suffix == <span class="hljs-literal">null</span>)&#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BusinessException</span>(ErrorCode.SYSTEM_ERROR,<span class="hljs-string">&quot;后缀名解析错误&quot;</span>);<br>        &#125;<br>        ThrowUtils.throwIf(!suffix.equals(EXCEL_SUFFIX),ErrorCode.NOT_FOUND_ERROR,<span class="hljs-string">&quot;后缀名不匹配,上传失败&quot;</span>);<br><br>        <span class="hljs-comment">//Ai预设</span><br>        <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">prompt</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;假如你是一个资深数据分析师和前端开发专家，接下来我会按照以下固定格式给你提供内容: \n&quot;</span> +<br>                <span class="hljs-string">&quot;分析需求: \n&quot;</span> +<br>                <span class="hljs-string">&quot;&#123;数据分析的需求或者目标&#125;\n&quot;</span> +<br>                <span class="hljs-string">&quot;需要分析的数据: \n&quot;</span> +<br>                <span class="hljs-string">&quot;&#123;csv格式的原始数据，用,作为分隔符&#125;\n&quot;</span> +<br>                <span class="hljs-string">&quot;请根据这两部分内容，按照以下指定的格式生成内容(此外不要输出任何多余的注释，开头，结尾，符号等) \n&quot;</span> +<br>                <span class="hljs-string">&quot;【【【【【【\n&quot;</span> +<br>                <span class="hljs-string">&quot;&#123;前端Echarts V5版本的 option 配置对象的js代码的Json格式，强调一下，一定要Json格式的代码，便于前端解析成Json解析器解析，合理的将数据进行可视化，这里只需要option 配置对象的js代码，不要生成任何多余的内容，比如注释&#125;\n&quot;</span> +<br>                <span class="hljs-string">&quot;【【【【【【\n&quot;</span> +<br>                <span class="hljs-string">&quot;&#123;明确的数据分析结论，越详细越好，不要生成多余的注释&#125;&quot;</span>;<br>        <span class="hljs-comment">//用户输入填充</span><br>        <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">userInput</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br>        userInput.append(prompt).append(<span class="hljs-string">&quot;\n&quot;</span>);<br>        userInput.append(<span class="hljs-string">&quot;以下是我的提问内容，请你按照上面的输入和输出的格式，提取我下面的内容，并按上述格式生成代码和结论。&quot;</span>).append(<span class="hljs-string">&quot;\n&quot;</span>);<br>        userInput.append(<span class="hljs-string">&quot;我的分析需求:&quot;</span>).append(<span class="hljs-string">&quot;\n&quot;</span>).append(goal).append(<span class="hljs-string">&quot;。我需要生成的图表类型为:&quot;</span>).append(chartType).append(<span class="hljs-string">&quot;\n&quot;</span>);<br>        userInput.append(<span class="hljs-string">&quot;原始csv数据:&quot;</span>).append(<span class="hljs-string">&quot;\n&quot;</span>).append(data);<br>        <span class="hljs-comment">//执行任务之前，先把用户输入保存至数据库</span><br>        <span class="hljs-type">User</span> <span class="hljs-variable">loginUser</span> <span class="hljs-operator">=</span> userService.getLoginUser(request);<br>        <span class="hljs-comment">//先向数据库插入除了ChartData除外的数据</span><br>        <span class="hljs-type">Chart</span> <span class="hljs-variable">chart</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Chart</span>();<br>        chart.setGoal(goal);<br>        chart.setName(name);<br>        chart.setChartData(<span class="hljs-literal">null</span>);<br>        <span class="hljs-comment">//设置为等待状态</span><br>        chart.setStatus(ChartEnum.WAIT.getKey());<br>        chart.setChartType(chartType);<br>        chart.setUserId(loginUser.getId());<br>        <span class="hljs-type">boolean</span> <span class="hljs-variable">save</span> <span class="hljs-operator">=</span> chartService.save(chart);<br>        <span class="hljs-keyword">if</span> (!save)&#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BusinessException</span>(<span class="hljs-number">12131</span>,<span class="hljs-string">&quot;保存图表数据失败&quot;</span>);<br>        &#125;<br>        <span class="hljs-comment">//获取已保存的chartId</span><br>        <span class="hljs-comment">//根据name查询id</span><br>        LambdaQueryWrapper&lt;Chart&gt; queryWrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;&gt;();<br>        queryWrapper.eq(Chart::getName,name);<br>        <span class="hljs-type">Chart</span> <span class="hljs-variable">one</span> <span class="hljs-operator">=</span> chartService.getOne(queryWrapper);<br>        <span class="hljs-type">Long</span> <span class="hljs-variable">id</span> <span class="hljs-operator">=</span> one.getId();<br>        <span class="hljs-comment">//保存数据库</span><br>        String[] split1 = data.split(<span class="hljs-string">&quot;\n&quot;</span>);<br>        String[] split2 = split1[<span class="hljs-number">0</span>].split(<span class="hljs-string">&quot;,&quot;</span>);<br>        List&lt;String&gt; list = Arrays.asList(split2);<br>        <span class="hljs-comment">//获取长度，循环写拼接sql</span><br>        <span class="hljs-type">int</span> <span class="hljs-variable">length</span> <span class="hljs-operator">=</span> list.size();<br>        <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">stringBuilder</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br>        <span class="hljs-type">String</span> <span class="hljs-variable">sql1</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;create table chartData_&quot;</span> +id+<br>                <span class="hljs-string">&quot;(id  bigint auto_increment  primary key,&quot;</span>;<br>        stringBuilder.append(sql1);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">k</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; k &lt; length; k++) &#123;<br>            <span class="hljs-keyword">if</span> (k == length - <span class="hljs-number">1</span>)&#123;<br>                stringBuilder.append(list.get(k)).append(<span class="hljs-string">&quot; varchar(128) null&quot;</span>);<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                stringBuilder.append(list.get(k)).append(<span class="hljs-string">&quot; varchar(128) null,&quot;</span>);<br>            &#125;<br>        &#125;<br>        stringBuilder.append(<span class="hljs-string">&quot;)&quot;</span>);<br>        <span class="hljs-comment">//拼接完成</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">sql</span> <span class="hljs-operator">=</span> stringBuilder.toString();<br>        <span class="hljs-comment">//执行建表语句</span><br>        chartService.createChartDataTable(sql);<br>        <span class="hljs-comment">//获取新建表的字段</span><br>        List&lt;String&gt; tableColumns = chartService.getTableColumns(<span class="hljs-string">&quot;chartData_&quot;</span> + id);<br>        <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">builder</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br>        builder.append(<span class="hljs-string">&quot;insert into chartData_&quot;</span>).append(id).append(<span class="hljs-string">&quot; (&quot;</span>);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">k</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; k &lt; tableColumns.size(); k++) &#123;<br>            <span class="hljs-keyword">if</span> ( k == tableColumns.size()-<span class="hljs-number">1</span>)&#123;<br>                builder.append(tableColumns.get(k));<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                builder.append(tableColumns.get(k)).append(<span class="hljs-string">&quot;,&quot;</span>);<br>            &#125;<br>        &#125;<br>        builder.append(<span class="hljs-string">&quot;) values (&quot;</span>);<br>        <span class="hljs-comment">//把builder转化为String不可变对象,不然下面的每次拼接都会在上次的基础上拼接</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">insertBuilder</span> <span class="hljs-operator">=</span> builder.toString();<br>        <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">stringBuilder1</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br>        String[] split3 = data.split(<span class="hljs-string">&quot;\n&quot;</span>);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i1</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i1 &lt; split3.length; i1++) &#123;<br>            String[] split4 = split3[i1].split(<span class="hljs-string">&quot;,&quot;</span>);<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i2</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i2 &lt; split4.length; i2++) &#123;<br>                <span class="hljs-type">String</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> split4[i2];<br>                <span class="hljs-keyword">if</span> (i2 == split4.length -<span class="hljs-number">1</span>)&#123;<br>                    stringBuilder1.append(<span class="hljs-string">&quot;&#x27;&quot;</span>).append(s).append(<span class="hljs-string">&quot;&#x27;&quot;</span>);<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    stringBuilder1.append(<span class="hljs-string">&quot;&#x27;&quot;</span>).append(s).append(<span class="hljs-string">&quot;&#x27;,&quot;</span>);<br>                &#125;<br>            &#125;<br>            stringBuilder1.append(<span class="hljs-string">&quot;)&quot;</span>);<br>            <span class="hljs-comment">//执行插入的拼接sql</span><br>            <span class="hljs-type">String</span> <span class="hljs-variable">sqlGood</span> <span class="hljs-operator">=</span> insertBuilder + stringBuilder1;<br>            chartService.insertChartTable(sqlGood);<br>            <span class="hljs-comment">//把使用过的stringBuilder1清空，便于下次循环的执行</span><br>            stringBuilder1.delete(<span class="hljs-number">0</span>,stringBuilder1.length());<br>            <span class="hljs-comment">//TODO BUG 插入不进去  已解决</span><br>        &#125;<br>        <span class="hljs-comment">//TODO 处理任务队列满了之后的抛异常</span><br>        <span class="hljs-comment">//新增任务,将调用Ai任务塞进去</span><br>        CompletableFuture.runAsync(() -&gt; &#123;<br>            <span class="hljs-comment">//todo 添加超时时间。超过时间标记任务为失败，手动结束任务</span><br>            <span class="hljs-comment">//todo 添加超时时间字段,or 给线程池添加一个任务超时参数？</span><br>            <span class="hljs-comment">//修改ai生成图表的状态为执行中running</span><br>            one.setStatus(ChartEnum.RUNNING.getKey());<br>            <span class="hljs-type">boolean</span> <span class="hljs-variable">b</span> <span class="hljs-operator">=</span> chartService.updateById(one);<br><br>            <span class="hljs-comment">//判断是否更新成功</span><br>            <span class="hljs-keyword">if</span> (!b)&#123;<br>                handleException(one,<span class="hljs-string">&quot;更新图表执行状态失败&quot;</span>);<br>                <span class="hljs-keyword">return</span>;<br>            &#125;<br><br>            <span class="hljs-comment">//使用Ai传输问题</span><br>            <span class="hljs-type">String</span> <span class="hljs-variable">chatResult</span> <span class="hljs-operator">=</span> aiManager.doChat(userInput.toString());<br>            <span class="hljs-comment">//限流判断  针对每个用户做限流，每个用户单位时间内只能执行这个方法2次</span><br>            <span class="hljs-comment">//给每一个用户色设定一个限流器，根据key的不同来区分</span><br>            <span class="hljs-comment">//划分粒度，针对每个方法被xx调用做限流，针对某个用户操作某个方法做限流</span><br>            <span class="hljs-comment">// String key = 方法名+userID</span><br>            <span class="hljs-type">String</span> <span class="hljs-variable">key</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;genChartByAi_&quot;</span> + loginUser.getId();<br>            <span class="hljs-comment">//限流</span><br>            limiterManager.doRedisLimiter(key);<br><br>            <span class="hljs-comment">//获取结果</span><br>            String[] split = chatResult.split(<span class="hljs-string">&quot;【【【【【【&quot;</span>);<br>            ThrowUtils.throwIf(split.length&lt;<span class="hljs-number">3</span>,ErrorCode.SYSTEM_ERROR,<span class="hljs-string">&quot;Ai响应错误&quot;</span>);<br>            <span class="hljs-type">String</span> <span class="hljs-variable">option</span> <span class="hljs-operator">=</span> split[<span class="hljs-number">1</span>].trim();  <span class="hljs-comment">//trim()去除了首尾空格的新字符串</span><br>            <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> option.indexOf(<span class="hljs-string">&quot;&#123;&quot;</span>);<br>            <span class="hljs-type">String</span> <span class="hljs-variable">optionJs</span> <span class="hljs-operator">=</span> option.substring(i);<br>            <span class="hljs-type">String</span> <span class="hljs-variable">genResult</span> <span class="hljs-operator">=</span> split[<span class="hljs-number">2</span>].trim();<br>            <span class="hljs-comment">//打印输出</span><br>            log.info(optionJs);<br>            log.info(genResult);<br>            <span class="hljs-comment">//更改数据库图标状态为 成功 succeed , 失败 failed</span><br>            one.setStatus(ChartEnum.SUCCEED.getKey());<br>            one.setGenChart(optionJs);<br>            one.setGenResult(genResult);<br>            <span class="hljs-type">boolean</span> <span class="hljs-variable">updateResult</span> <span class="hljs-operator">=</span> chartService.updateById(one);<br>            <span class="hljs-keyword">if</span> (!updateResult)&#123;<br>                handleException(one,<span class="hljs-string">&quot;更新图表成功状态失败&quot;</span>);<br>                <span class="hljs-keyword">return</span>;<br>            &#125;<br><br>        &#125;,poolExecutor);<br><br>        <span class="hljs-comment">//向表中插入数据</span><br>        <span class="hljs-comment">//返回</span><br>        <span class="hljs-type">AiResponse</span> <span class="hljs-variable">aiResponse</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">AiResponse</span>();<br>        <span class="hljs-keyword">return</span> ResultUtils.success(aiResponse);<br>    &#125;<br><br>	<span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span>  <span class="hljs-title function_">handleException</span><span class="hljs-params">(Chart one,String errorMessage)</span>&#123;<br>        one.setStatus(ChartEnum.FAILED.getKey());<br>        <span class="hljs-type">boolean</span> <span class="hljs-variable">b</span> <span class="hljs-operator">=</span> chartService.updateById(one);<br>        <span class="hljs-keyword">if</span> (!b) &#123;<br>            log.error(<span class="hljs-string">&quot;更新图表失败状态失败,&quot;</span>+one.getId()+ <span class="hljs-string">&quot;,&quot;</span>+ errorMessage);<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>分表实现：</p>
+<p><img src="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230831084605165.png" srcset="/img/loading.gif" lazyload alt="image-20230831084605165"></p>
+<ul>
+<li>反向压力：根据下游调用服务的状态来反推你的核心线程数的设置，</li>
+</ul>
+<p><font color='red'>可以设置定时任务定时检查下游服务的服务状态，比如Ai很繁忙，这时候就不要增加核心线程数，如果AI很空闲，适当增加核心线程数，动态的调整核心线程数，建议不要在配置中写死;</font></p>
+<p>优化: </p>
+<ul>
+<li><p>guava retrying重试机制,任务执行失败时自动重试</p>
+</li>
+<li><p>添加任务超时时间 </p>
+</li>
+<li><p>前端我的图表加上定时刷新</p>
+</li>
+<li><p>任务执行成功或失败给用户发送实时消息</p>
+</li>
+</ul>
+<h2 id="rabbitmq"><a href="#rabbitmq" class="headerlink" title="rabbitmq:"></a>rabbitmq:</h2><h3 id="消息确认机制"><a href="#消息确认机制" class="headerlink" title="消息确认机制"></a>消息确认机制</h3><h3 id="消息重试"><a href="#消息重试" class="headerlink" title="消息重试"></a>消息重试</h3><h3 id="死信队列"><a href="#死信队列" class="headerlink" title="死信队列"></a>死信队列</h3><p><font color='red'>处理失败了的消息，从死信队列中去消息去重试或消费，任务完成不了交给死信队列，新建一个队列比如外包队列，外包队列获取死信队列的失败消息（专门处理死信的队列，只是一个普通的队列）</font></p>
+<p><font color='red'>  死信队列的主要目的是处理以下情况：</font></p>
+<ol>
+<li>消息被拒绝（basic.reject）并且不重新入队（requeue&#x3D;false）。</li>
+<li>消息过期（消息的 TTL 设置）。</li>
+<li>队列达到最大长度。</li>
+</ol>
+<p>使用死信队列的<strong>步骤</strong>如下：</p>
+<ol>
+<li><p>创建一个普通的队列，并设置其 <code>x-dead-letter-exchange</code> 和 <code>x-dead-letter-routing-key</code> 参数，用于指定死信消息的交换器和路由键。</p>
+</li>
+<li><p>创建一个死信交换器，并将其绑定到死信队列上。</p>
+</li>
+<li><p>将消息发送到普通队列中，当消息满足死信条件时，RabbitMQ 会将其发送到死信交换器，并路由到死信队列中.</p>
+</li>
+</ol>
+<h3 id="消息过期机制"><a href="#消息过期机制" class="headerlink" title="消息过期机制"></a>消息过期机制</h3><h2 id="Apache-kafka"><a href="#Apache-kafka" class="headerlink" title="Apache kafka"></a>Apache kafka</h2><h2 id="websocket"><a href="#websocket" class="headerlink" title="websocket"></a>websocket</h2><p>集成websocket</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-websocket --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-websocket<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.7.14<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
+
+<p>TODO </p>
+<p>后端集成websocket，配置websocket，编写websocketService，</p>
+<p>自定义接收发送消息的方法，</p>
+<p>在任务完成时调用发送消息方法，前端接收到消息后，设置变量当接收到消息时变量值+1，</p>
+<p>后端设计一个消息数据库，接受的消息存入数据库，点击图标时展示消息列表。</p>
+<p>搭建聊天室，</p>
+<p>发送实时消息</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_27610647/article/details/132422945">Spring Boot 集成 WebSocket 实现服务端推送消息到客户端_不羁的fang少年的博客-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/poker_zero/article/details/126184697">java后端+前端使用WebSocket实现消息推送_前端调用java的websocket客户端_零⁮的博客-CSDN博客</a></p>
+<h2 id="线程池知识点"><a href="#线程池知识点" class="headerlink" title="线程池知识点"></a>线程池知识点</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45433817/article/details/132524464?spm=1001.2014.3001.5501&ydreferer=aHR0cHM6Ly9hcnRpY2xlcy56c3hxLmNvbS8=&ydreferer=aHR0cHM6Ly9hcnRpY2xlcy56c3hxLmNvbS8=">Java并发编程第6讲——线程池（万字详解）_橡 皮 人的博客-CSDN博客</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/mq/" class="print-no-link">#mq</a>
+      
+        <a href="/tags/%E9%A1%B9%E7%9B%AE/" class="print-no-link">#项目</a>
+      
+        <a href="/tags/AI/" class="print-no-link">#AI</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>AIGC智能分析小助手</div>
+      <div>http://zhouzhoubao.xyz/2023/09/14/AIGC智能分析小助手/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>李成阳</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年9月14日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年9月14日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/09/14/Linux%EF%BC%88ubuntu%EF%BC%89%E5%AE%89%E8%A3%85rabbitmq/" title="Linux（ubuntu）安装rabbitmq">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Linux（ubuntu）安装rabbitmq</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/09/14/linux%E9%85%8D%E7%BD%AEElasticsearch%E7%8E%AF%E5%A2%83%EF%BC%88%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%89%88%EF%BC%89/" title="linux配置Elasticsearch环境（基础学习版）">
+                        <span class="hidden-mobile">linux配置Elasticsearch环境（基础学习版）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="lv-container" data-id="city" data-uid="MTAyMC81ODc2MC8zNTIyMg==">
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <!-- 网易云音乐播放器 --> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"> <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script> <div id="player" class="aplayer aplayer-withlist aplayer-fixed" data-id="5155575627" data-server="netease" data-type="playlist" data-order="random" data-autoplay="true" data-fixed="true" data-listfolded="true" data-theme="#2D8CF0"></div>
+<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
