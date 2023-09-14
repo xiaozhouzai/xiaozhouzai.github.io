@@ -16,24 +16,26 @@
   <meta name="author" content="李成阳">
   <meta name="keywords" content="">
   
-    <meta name="description" content="每日一面RabbitMq的工作模式有啥？1，simple模式（普通模式） 消息生产者将消息发送到broker（各种消息中间件）直接发送到队列中，消费者监听队列是否有消息，有消息就去消费，消息被消费后消息队列就会把消息丢弃。一般把autoack设置为false，他表示开启自动确认，如果消息一旦被消费者取走，不管有没有被正确消费，都会确认，继而消息队列会将消息认为已处理，不接收到是否被正确消费就将消息">
+    <meta name="description" content="从零开始建立博客一、假设你有github账号，你已经下载并配置好node.js下面我们将从此基础上搭建。 在任意目录下建立一个Blog目录用于初始化博客项目  进入新建的博客目录打开git窗口   1cd D:&#x2F;MyBlog  1234npm install -g hexo-clihexo init &#x2F;&#x2F;初始化hexo g 静态部署hexo s 查看页面   进入根目录下的_config.xml在">
 <meta property="og:type" content="article">
-<meta property="og:title" content="每日一面">
-<meta property="og:url" content="http://zhouzhoubao.xyz/2023/09/14/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%9D%A2/index.html">
+<meta property="og:title" content="从零开始建立博客">
+<meta property="og:url" content="http://zhouzhoubao.xyz/2023/09/14/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2/index.html">
 <meta property="og:site_name" content="LCY的博客">
-<meta property="og:description" content="每日一面RabbitMq的工作模式有啥？1，simple模式（普通模式） 消息生产者将消息发送到broker（各种消息中间件）直接发送到队列中，消费者监听队列是否有消息，有消息就去消费，消息被消费后消息队列就会把消息丢弃。一般把autoack设置为false，他表示开启自动确认，如果消息一旦被消费者取走，不管有没有被正确消费，都会确认，继而消息队列会将消息认为已处理，不接收到是否被正确消费就将消息">
+<meta property="og:description" content="从零开始建立博客一、假设你有github账号，你已经下载并配置好node.js下面我们将从此基础上搭建。 在任意目录下建立一个Blog目录用于初始化博客项目  进入新建的博客目录打开git窗口   1cd D:&#x2F;MyBlog  1234npm install -g hexo-clihexo init &#x2F;&#x2F;初始化hexo g 静态部署hexo s 查看页面   进入根目录下的_config.xml在">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-09-14T02:49:37.000Z">
-<meta property="article:modified_time" content="2023-09-14T03:07:11.086Z">
+<meta property="og:image" content="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230816115645732.png">
+<meta property="article:published_time" content="2023-09-14T03:02:16.000Z">
+<meta property="article:modified_time" content="2023-09-14T03:03:34.089Z">
 <meta property="article:author" content="李成阳">
-<meta property="article:tag" content="面试题">
+<meta property="article:tag" content="教程">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230816115645732.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>每日一面 - LCY的博客</title>
+  <title>从零开始建立博客 - LCY的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +201,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="每日一面"></span>
+            <span id="subtitle" data-typed-text="从零开始建立博客"></span>
           
         </div>
 
@@ -215,7 +217,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-09-14 10:49" pubdate>
+        <time datetime="2023-09-14 11:02" pubdate>
           2023年9月14日 上午
         </time>
       </span>
@@ -227,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.1k 字
+          1.9k 字
         
       </span>
     
@@ -238,7 +240,7 @@
         
         
         
-          34 分钟
+          17 分钟
         
       </span>
     
@@ -288,7 +290,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">每日一面</h1>
+            <h1 id="seo-header">从零开始建立博客</h1>
             
               <p class="note note-info">
                 
@@ -301,69 +303,61 @@
             
               <div class="markdown-body">
                 
-                <h1 id="每日一面"><a href="#每日一面" class="headerlink" title="每日一面"></a>每日一面</h1><h2 id="RabbitMq的工作模式有啥？"><a href="#RabbitMq的工作模式有啥？" class="headerlink" title="RabbitMq的工作模式有啥？"></a><strong>RabbitMq</strong>的工作模式有啥？</h2><p>1，<strong>simple模式</strong>（普通模式）</p>
-<p>消息生产者将消息发送到broker（各种消息中间件）直接发送到队列中，消费者监听队列是否有消息，有消息就去消费，消息被消费后消息队列就会把消息丢弃。一般把autoack设置为false，他表示开启自动确认，如果消息一旦被消费者取走，不管有没有被正确消费，都会确认，继而消息队列会将消息认为已处理，不接收到是否被正确消费就将消息移除队列，如果此时消息还没有被正确消费就没有了，会产生消息丢失问题。 </p>
-<p>自定义basicAck（确认），或者basicNack（不确认），basicReject（拒绝） ，手动处理，处理完后及时发送ack，nack，reject消息给消息队列，如果一直不确认，消息会堆积在消息队列，会造成内存溢出情况</p>
-<p>2, <strong>work</strong>模式（资源的竞争）</p>
-<p>消息生产者将消息发送到消息队列，此时有多个消费者共同监听一个队列，当消费时，两个消费者共同去抢夺这个消息，谁抢到消息，谁消费。但是在分布式高并发情况下，有可能多个消费者同时抢到这个消息，多个消费者都消费了这条消息，可能会造成数据不一致等多个问题，比如任务是插入数据库操作，多个消费者都执行了，数据重复。</p>
-<p>解决，给消费者设置synchronize开关，谁请到谁执行，其他的抢不到也不再消费。保证一条消息只能被一个消费者消费。</p>
-<p>3，<strong>publish（发布）subscribe（订阅）</strong>模式</p>
-<p>消息生产者将消息发到broker，由交换机将消息分发到绑定此交换机的所有队列。</p>
-<p>每个消费者监听自己的队列</p>
-<p>4，<strong>routing路由模式</strong></p>
-<p>生产者将消息和路由密匙一起发到broker，由路由交换机根据路由匹配，根据路由匹配规则合理的设置routerKey，将消息发送到由路由匹配到的队列，消费者去消费对应的队列的消息</p>
-<p>routerKey的设置很灵活，根据具体的业务场景自定义设计，主要还是两个通配符</p>
-<p>*代表一个字符或一个字符串，#代表多个，或者全匹配</p>
-<h2 id="synchronized-并发关键字的作用？"><a href="#synchronized-并发关键字的作用？" class="headerlink" title="synchronized 并发关键字的作用？"></a>synchronized 并发关键字的作用？</h2><p>synchronized是用来控制线程同步的，保证被synchronized修饰的代码块在同一时间只能被一个线程处理，synchronized可以修饰，类，方法，代码块。</p>
-<p>jdk1.6之后synchronized🔒有四种状态:无锁，偏向锁，轻量级锁和重量级锁</p>
-<p>🌵无锁: 当一个对象创建之后，还没有线程进入，这时候对象就处于无锁状态。 </p>
-<p>🌵偏向所: 当处于无锁状态时，有一个线程A访问同步块并获得锁时会在对象头和栈帧中的锁记录线程ID(threadID)，之后该线程在进入和退出同步块时，不需要进行CAS操作来进行加锁解锁，只需要简单测试一下对象头的线程ID是否和当前线程是否一致 。</p>
-<p>🌵轻量级锁: 在偏向锁的基础上，当有另一个线程B进来，这时判断对象头储存的线程ID和线程B的不一致，就会使用CAS竞争锁，并升级成轻量级锁，会在线程中创建一个锁记录，将锁信息复制到锁记录里，然后尝试使用CAS，将对象头的信息替换成指向👉🏻锁记录的指针。 </p>
-<p>🌵重量级锁: 当线程没有获得轻量级锁的时候，线程会CAS自旋来获得锁，当一个线程自旋10次之后，仍没获得锁，择升级成重量级锁。成为重量级锁之后，线程会进入阻塞队列，线程不再自旋获得锁，而是由CPU进行调度，线程串行化执行。</p>
-<ol>
-<li>类级别的 synchronized：当 synchronized 修饰一个类时，它锁定的是整个类的实例。这意味着在同一时间内，只有一个线程可以访问该类的任何 synchronized 方法或代码块。这种方式可以用于保护共享的类级别资源。</li>
-<li>方法级别的 synchronized：当 synchronized 修饰一个方法时，它锁定的是当前对象实例（即 this）。这意味着在同一时间内，只有一个线程可以访问该对象的该 synchronized 方法。其他线程需要等待当前线程执行完毕才能访问该方法。这种方式可以用于保护对象级别的资源。</li>
-<li>块级别的 synchronized：当 synchronized 修饰一个代码块时，它锁定的是括号内指定的对象实例。这意味着在同一时间内，只有一个线程可以访问该对象的该 synchronized 代码块。其他线程需要等待当前线程执行完毕才能访问该代码块。这种方式可以用于保护特定的代码块级别资源。</li>
-<li>对变量进行同步访问，可以使用其他的同步机制，如使用锁对象或使用原子类等。使用锁对象来同步访问变量的示例代码：</li>
+                <h1 id="从零开始建立博客"><a href="#从零开始建立博客" class="headerlink" title="从零开始建立博客"></a>从零开始建立博客</h1><h2 id="一、假设你有github账号，你已经下载并配置好node-js下面我们将从此基础上搭建。"><a href="#一、假设你有github账号，你已经下载并配置好node-js下面我们将从此基础上搭建。" class="headerlink" title="一、假设你有github账号，你已经下载并配置好node.js下面我们将从此基础上搭建。"></a>一、假设你有github账号，你已经下载并配置好node.js下面我们将从此基础上搭建。</h2><ol>
+<li><p>在任意目录下建立一个Blog目录用于初始化博客项目</p>
+</li>
+<li><p>进入新建的博客目录打开git窗口</p>
+</li>
 </ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-type">Object</span> <span class="hljs-variable">lock</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>();<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> count;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">increment</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">synchronized</span> (lock) &#123;<br>            count++;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getCount</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">synchronized</span> (lock) &#123;<br>            <span class="hljs-keyword">return</span> count;<br>        &#125;<br>    &#125;<br><span class="hljs-comment">//对count的操作是线程安全的</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd D:/MyBlog<br></code></pre></td></tr></table></figure>
 
-<h2 id="什么是线程池"><a href="#什么是线程池" class="headerlink" title="什么是线程池?"></a>什么是线程池?</h2><p>线程池是一种管理和重用线程的技术，用于提高多线程应用的性能和效率</p>
-<p>首先它存在线程容量，可以设定线程分配的数量</p>
-<p>将预先创建的线程放入池中管理，并重用线程池中的线程对象</p>
-<p>避免频繁的线程创建和销毁 </p>
-<p>频繁创建和销毁线程，会增加虚拟机的回收频率，资源开销，造成性能下降</p>
-<p>过多分配线程会造成内存溢出</p>
-<h2 id="线程的阻塞是什么（我自己不懂的问题）"><a href="#线程的阻塞是什么（我自己不懂的问题）" class="headerlink" title="线程的阻塞是什么（我自己不懂的问题）"></a>线程的阻塞是什么（我自己不懂的问题）</h2><p>线程的阻塞指的是线程被暂时挂起或停止执行，直到满足某个条件后才能继续执行。当线程处于阻塞状态时，它会释放 CPU 资源，让其他可运行线程有机会执行。</p>
-<p>线程可以因为多种原因而进入阻塞状态，包括但不限于以下几种情况：</p>
-<ol>
-<li>等待阻塞：当线程调用 <code>Object.wait()</code>、<code>Thread.join()</code> 或 <code>LockSupport.park()</code> 方法时，它会进入等待阻塞状态，直到其他线程调用相应的 <code>notify()</code>、<code>notifyAll()</code> 或 <code>unpark()</code> 方法来唤醒它。</li>
-<li>同步阻塞：当线程尝试获取一个锁对象时，如果锁对象已被其他线程持有，则该线程会进入同步阻塞状态，直到锁对象被释放。</li>
-<li>睡眠阻塞：当线程调用 <code>Thread.sleep()</code> 方法时，它会进入睡眠阻塞状态，暂停执行一段指定的时间。</li>
-<li>I&#x2F;O 阻塞：当线程进行输入输出操作时，如果遇到阻塞的 I&#x2F;O 操作（如读取文件、网络通信等），线程会进入 I&#x2F;O 阻塞状态，直到 I&#x2F;O 操作完成。</li>
-<li>条件阻塞：当线程调用 <code>Lock</code> 接口的 <code>Condition.await()</code> 方法时，它会进入条件阻塞状态，直到其他线程调用相应的 <code>Condition.signal()</code> 或 <code>Condition.signalAll()</code> 方法来唤醒它。</li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install -g hexo-cli<br>hexo init //初始化<br>hexo g 静态部署<br>hexo s 查看页面<br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>进入根目录下的_config.xml在最后面配置如下内容</li>
 </ol>
-<p>线程的阻塞状态是临时的，一旦满足了相应的条件，线程就会被唤醒并继续执行。在阻塞期间，线程不会占用 CPU 资源，从而提高了系统的效率和资源利用率。</p>
-<h2 id="springboot自动装配原理"><a href="#springboot自动装配原理" class="headerlink" title="springboot自动装配原理"></a>springboot自动装配原理</h2><p>通过@SpringbootApplication实现</p>
-<p>@SpringbootApplication 是三个注解的集合</p>
-<p>@EnableAutoConfiguration  </p>
-<p>@ComponentScan</p>
-<h1 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h1><p><strong>HashMap（多线程是线程不安全的）</strong></p>
-<p>​	在多线程情况下，同时A、B两个线程走到createEntry()方法中，并且这两个线程中插入的元素hash值相同，bucketIndex值也相同，那么无论A线程先执行，还是B线程先被执行，最终都会2个元素先后向链表的头部插入，导致互相覆盖，致使其中1个线程中的数据丢失。这样就造成了HashMap的线程不安全，数据的不一致；更要命的是，HashMap在多线程情况下还会出现死循环的可能，造成CPU占用率升高，导致系统卡死。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//向链表头部插入元素：在数组的某一个角标下形成链表结构；</span><br><span class="hljs-keyword">void</span> <span class="hljs-title function_">createEntry</span><span class="hljs-params">(<span class="hljs-type">int</span> hash, K key, V value, <span class="hljs-type">int</span> bucketIndex)</span> &#123;<br>    Entry&lt;K,V&gt; e = table[bucketIndex];<br>    table[bucketIndex] = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Entry</span>&lt;&gt;(hash, key, value, e);<br>    size++;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">deploy:<br>  type: git<br>  repository: git@github.com:xiaozhouzai/xiaozhouzai.github.io.git  #你的仓库地址<br>  branch: main<br></code></pre></td></tr></table></figure>
 
-<p><strong>HashTable效率低</strong></p>
-<p>​	在HashTable中，所有的方法都加上了synchronized锁，用锁来实现线程的安全性。由于***<font color="red">synchronized</font>*** 锁加在了HashTable的每一个方法上，所以这个锁就是HashTable本身–this。那么，可想而知HashTable的效率是如何，安全是保证了，但是效率却损失了。</p>
-<p>无论执行哪个方法，整个哈希表都会被锁住，只有其中一个线程执行完毕，释放所，下一个线程才会执行。无论你是调用get方法，还是put方法皆是如此；</p>
-<p><strong>ConcurrentHashMap取胜</strong></p>
-<ul>
-<li><p>由***<font color="red">Segment</font><em><strong>和</strong></em><font color="red">HashEntry</font>***两个数组组成。其中Segment起到了加锁同步的作用，而HashEntry则起到了存储K,V键值对的作用。</p>
+<ol start="4">
+<li>安装git部署插件（执行hexo d 必须要安装这个插件）</li>
+</ol>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">npm install hexo-deployer-git --save<br></code></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>每次更改内容需要执行以下三个命令：</li>
+</ol>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">hexo clean   #清除缓存文件 db.json 和已生成的静态文件 public<br>hexo g       #生成网站静态文件到默认设置的 public 文件夹<br>hexo d       #自动生成网站静态文件，并部署到设定的仓库<br></code></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>部署之后输入网址就可以看到你的博客内容</li>
+</ol>
+<p>报错：<code>warning: in the working copy of &#39;2023/07/28/hello-world/index.html&#39;, LF will be replaced by CRLF the next time Git touches it</code></p>
+<p>解决：</p>
+<p><code>git config --global core.autocrlf true</code></p>
+<ol start="7">
+<li>下载主题（Fluid）：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install --save hexo-theme-fluid<br></code></pre></td></tr></table></figure>
+
+<ol start="8">
+<li><p>进入主题目录下的_config.xml进行主题配置，去官网看官方文档</p>
 </li>
-<li><p>在ConcurrentHashMap中，每一个ConcurrentHashMap都包含了一个Segment数组，在Segment数组中每一个Segment对象则又包含了一个HashEntry数组，而在HashEntry数组中，每一个HashEntry对象保存K-V数据的同时又形成了链表结构，此时与HashMap结构相同。</p>
+<li><p>新建文章：<code>hexo n 文件名</code></p>
 </li>
-<li><p>在多线程中，每一个Segment对象守护了一个HashEntry数组，当对ConcurrentHashMap中的元素修改时，在获取到对应的Segment数组角标后，都会对此Segment对象加锁，之后再去操作后面的HashEntry元素，这样每一个Segment对象下，都形成了一个小小的HashMap，在保证数据安全性的同时，又提高了同步的效率。只要不是操作同一个Segment对象的话，就不会出现线程等待的问题！</p>
+<li><p>图片无法显示</p>
 </li>
-</ul>
+<li><p>解决：参考我的博客“typro配置图床”，采用图床图片就会显示。</p>
+</li>
+</ol>
+<h2 id="二、报错及解决"><a href="#二、报错及解决" class="headerlink" title="二、报错及解决"></a>二、报错及解决</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java">Error: Spawn failed<br>    at ChildProcess.&lt;anonymous&gt; (D:\MyBlog\node_modules\hexo-util\lib\spawn.js:<span class="hljs-number">51</span>:<span class="hljs-number">21</span>)<br>    at ChildProcess.emit (node:events:<span class="hljs-number">513</span>:<span class="hljs-number">28</span>)<br>    at cp.emit (D:\MyBlog\node_modules\cross-spawn\lib\enoent.js:<span class="hljs-number">34</span>:<span class="hljs-number">29</span>)<br>    at ChildProcess._handle.onexit (node:internal/child_process:<span class="hljs-number">291</span>:<span class="hljs-number">12</span>)<br>---------------------------------------------- <br>其他各种报错    <br><span class="hljs-comment">//搜的解决方法(对我没用)</span><br>rm -rf .deploy_git/<br>npm install hexo-deployer-git<br>hexo clean/ g /d<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java">Connection closed by <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span> port <span class="hljs-number">22</span><br>fatal: Could not read from remote repository.<br><br>Please make sure you have the correct access rights<br>and the repository exists.<br>FATAL Something<span class="hljs-string">&#x27;s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span><br><span class="hljs-string">Error: Spawn failed</span><br><span class="hljs-string">    at ChildProcess.&lt;anonymous&gt; (D:\MyBlog\node_modules\hexo-util\lib\spawn.js:51:21)</span><br><span class="hljs-string">    at ChildProcess.emit (node:events:513:28)</span><br><span class="hljs-string">    at cp.emit (D:\MyBlog\node_modules\cross-spawn\lib\enoent.js:34:29)</span><br><span class="hljs-string">    at ChildProcess._handle.onexit (node:internal/child_process:291:12)</span><br><span class="hljs-string">--------------------------------------------------------------------------------    </span><br></code></pre></td></tr></table></figure>
+
+<p><strong>解决</strong>：原因，我开了加速器，DNS解析被污染：在host加入一条记录解析</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">140.82.113.4 github.com<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://springboot-lcy.oss-cn-hangzhou.aliyuncs.com/img/image-20230816115645732.png" srcset="/img/loading.gif" lazyload alt="image-20230816115645732"></p>
+<p>解决：相信我，在你配置主题发现部署之后网页迟迟展现不出来建议直接删除博客重新再搭建，以一个过来人的经历劝你，重新搭建比你修修改改弄好效率要高，切记如果你没有前端基础，不要随便修改配置。会崩溃!!!!!!</p>
 
                 
               </div>
@@ -372,32 +366,11 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E9%9D%A2%E8%AF%95/" class="category-chain-item">面试</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" class="print-no-link">#面试题</a>
+        <a href="/tags/%E6%95%99%E7%A8%8B/" class="print-no-link">#教程</a>
       
     </div>
   
@@ -409,8 +382,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>每日一面</div>
-      <div>http://zhouzhoubao.xyz/2023/09/14/每日一面/</div>
+      <div>从零开始建立博客</div>
+      <div>http://zhouzhoubao.xyz/2023/09/14/从零开始建立博客/</div>
     </div>
     <div class="license-meta">
       
@@ -459,9 +432,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/09/14/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2/" title="从零开始建立博客">
+                      <a href="/2023/09/14/OJ%E7%B3%BB%E7%BB%9F%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E8%AE%BE%E8%AE%A1%E5%92%8C%E8%AE%A1%E5%88%92/" title="OJ系统数据库表设计和计划">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">从零开始建立博客</span>
+                        <span class="hidden-mobile">OJ系统数据库表设计和计划</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -469,8 +442,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/09/14/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" title="数据库设计">
-                        <span class="hidden-mobile">数据库设计</span>
+                      <a href="/2023/09/14/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%9D%A2/" title="每日一面">
+                        <span class="hidden-mobile">每日一面</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
